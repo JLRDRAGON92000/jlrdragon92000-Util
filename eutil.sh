@@ -31,6 +31,8 @@ $EUTIL_EDITOR "$UTIL_DIR/$target.sh";
 # Functionality reused from updutil, but I didn't want to invoke it directly. (What if they edit it with this, and then break it?)
 if [ -z "$EUTIL_NOCOPY" ];
 then
+	# Make it executable
+	chmod 755 "$UTIL_DIR/$target.sh";
 	cp "$UTIL_DIR/$target.sh" "$HOME/bin/$target" 2>/dev/null;
 	cpresult="$?";
 	if [ "$cpresult" -ne 0 ];
