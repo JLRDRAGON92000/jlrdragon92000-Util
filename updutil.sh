@@ -21,6 +21,8 @@ do
 		else
 			echo -e "\e[01;32m$FNAME -> $HOME/bin/$(basename ${FNAME%\.sh})\e[00m";
 		fi
+	else
+		echo -e "\e[01;31m$UTIL_DIR/$CFIL.sh not found or not executable\e[00m";
 	fi
 done
 
