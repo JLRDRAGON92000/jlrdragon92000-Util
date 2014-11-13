@@ -25,7 +25,10 @@ then
 	# Go to Util/
 	cd "$UTIL_DIR";
 	# Get the list of different files from the upstream
-	UTIL_DIFF_LIST=$(git diff --name-only @{upstream} "$FFIL");
+	UTIL_DIFF_LIST=$(git diff --name-only @{upstream} -- "$FFIL");
+	# Show the diff list
+	echo -e "\e[01;32mFiles to be changed:
+\e[01;37m$UTIL_DIFF_LIST\e[00m";
 	# Download the most current version of Util/ from the repo
 	cd "$HOME";
 	git clone "$FETCH_REPO_URL";
