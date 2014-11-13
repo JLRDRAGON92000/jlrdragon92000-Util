@@ -25,7 +25,7 @@ then
 fi
 
 # Invoke specified editor on script (The user will enter it without a .sh extension, so we add that for them)
-$EUTIL_EDITOR "$UTIL_DIR/$target.sh";
+"$EUTIL_EDITOR" "$UTIL_DIR/$target.sh";
 
 # When the user is done, we will copy the newly edited script to ~/bin for them.
 # Functionality reused from updutil, but I didn't want to invoke it directly. (What if they edit it with this, and then break it?)
@@ -42,3 +42,4 @@ then
 		echo -e "\e[01;32m$UTIL_DIR/$target.sh -> $HOME/bin/$target\e[00m";
 	fi
 fi
+
