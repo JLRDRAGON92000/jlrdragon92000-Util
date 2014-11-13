@@ -38,6 +38,7 @@ then
 	# Clean up
 	rm -rf "Util.tmp";
 	cd "$pwdbak";
+	exit 0;
 fi
 
 if [ -z "$1" ];
