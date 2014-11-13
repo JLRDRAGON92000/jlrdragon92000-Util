@@ -17,7 +17,7 @@ then
 	FFIL="$2";
 	if [ -z "$2" ];
 	then
-		:;
+		FFIL="*";
 	fi
 	
 	# Save the user's current working directory
