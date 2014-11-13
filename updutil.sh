@@ -12,7 +12,7 @@ UTIL_TMP_DIR="$HOME/Util.tmp";
 CFIL="$1";
 
 # Fetch mode (Fetch from the git repository)
-if [ "$CFIL" == "--fetch" ];
+if [ "$CFIL" == "--fetch" ] || [ "$CFIL" == "--fetch-all" ];
 then
 	FFIL="$2";
 	if [ -z "$2" ];
@@ -33,7 +33,13 @@ then
 	cd "$HOME";
 	git clone "$FETCH_REPO_URL";
 	mv "jlrdragon92000-Util" "Util.tmp";
-	# Copy the changed files to Util/
+	
+	# Are we in --fetch-all mode? If so, every file is changed
+	if [ "$CFIL" == "--fetch-all" ];
+	then
+		UTIL_DIFF_LIST="*";
+	fi
+	# Copy the changed files to Util/ (or all of them if --fetch-all)
 	for CFNAME in $UTIL_DIFF_LIST;
 	do
 		cp -f "Util.tmp/$CFNAME" "Util/$CFNAME"; 
