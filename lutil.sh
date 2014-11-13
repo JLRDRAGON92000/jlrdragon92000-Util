@@ -3,7 +3,7 @@
 # List all scripts in Util/, using similar format to ps1_list
 # (In fact, this is taken directly from ps1_list, right down to the variable names, which I did not feel like changing.)
 
-echo -e "\e[01;33m[...]\e[00m";
+echo -e "\e[01;33m[Loading]\e[00m";
 let lngst=0;
 
 SEARCH_DIR="$UTIL_DIR";
