@@ -29,9 +29,24 @@ then
 	git fetch -u "origin" "master";
 	# Get the list of different files from the upstream
 	UTIL_DIFF_LIST=$(git diff --name-only @{upstream} -- "$FFIL.sh");
+	
+	# Set the display for the diff list
+	if [ -z "$UTIL_DIFF_LIST" ];
+	then
+		UTIL_DIFF_LISTD="Nothing, already up to date";
+	else
+		UTIL_DIFF_LISTD="$UTIL_DIFF_LIST";
+	fi
 	# Show the diff list
 	echo -e "\e[01;32mFiles to be changed:
-\e[01;37m$UTIL_DIFF_LIST\e[00m";
+\e[01;37m$UTIL_DIFF_LISTD\e[00m";
+	
+	# If no files changed, stop now
+	if [ -z "$UTIL_DIFF_LIST" ];
+	then
+		exit 0;
+	fi
+	
 	# Download the most current version of Util/ from the repo
 	cd "$HOME";
 	git clone "$FETCH_REPO_URL";
