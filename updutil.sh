@@ -25,7 +25,7 @@ then
 	# Go to Util/
 	cd "$UTIL_DIR";
 	# Update the HEAD of the upstream
-	git fetch -u origin master
+	git fetch -u "origin" "master";
 	# Get the list of different files from the upstream
 	UTIL_DIFF_LIST=$(git diff --name-only @{upstream} -- "$FFIL");
 	# Show the diff list
@@ -54,6 +54,9 @@ fi
 if [ -z "$1" ];
 then
 	CFIL="*";
+elif [ "$1" == "--fetch" ] || [ "$1" == "--fetch-all" ];
+then
+	CFIL="$FFIL";
 fi
 
 # Copy the specified objects
