@@ -39,15 +39,15 @@ then
 	# Are we in --fetch-all mode? If so, every file is changed
 	if [ "$CFIL" == "--fetch-all" ];
 	then
-		UTIL_DIFF_LIST="*";
+		UTIL_DIFF_LIST="$HOME/Util.tmp/*";
 	fi
 	# Copy the changed files to Util/ (or all of them if --fetch-all)
 	for CFNAME in $UTIL_DIFF_LIST;
 	do
-		cp -f "Util.tmp/$CFNAME" "Util/$CFNAME"; 
+		cp -f "$HOME/Util.tmp/$(basename $CFNAME)" "$HOME/Util/$(basename $CFNAME)"; 
 	done
 	# Clean up
-	rm -rf "Util.tmp";
+	rm -rf "$HOME/Util.tmp";
 	cd "$pwdbak";
 fi
 
