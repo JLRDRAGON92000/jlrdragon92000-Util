@@ -31,7 +31,10 @@ then
 	UTIL_DIFF_LIST=$(git diff --name-only @{upstream} -- "$FFIL.sh");
 	
 	# Set the display for the diff list
-	if [ -z "$UTIL_DIFF_LIST" ];
+	if [ "$CFIL" == "--fetch-all" ];
+	then
+		UTIL_DIFF_LISTD="ALL of them";
+	elif [ -z "$UTIL_DIFF_LIST" ];
 	then
 		UTIL_DIFF_LISTD="Nothing, already up to date";
 	else
