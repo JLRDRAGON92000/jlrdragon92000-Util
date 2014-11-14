@@ -45,7 +45,7 @@ then
 \e[01;37m$UTIL_DIFF_LISTD\e[00m";
 	
 	# If no files changed, stop now
-	if [ -z "$UTIL_DIFF_LIST" ];
+	if [ -z "$UTIL_DIFF_LIST" ] && [ "$CFIL" != "--fetch-all" ];
 	then
 		exit 0;
 	fi
