@@ -10,6 +10,7 @@ UTIL_TMP_DIR="$HOME/Util.tmp";
 # Get first argument
 # If it is nil, use * (Everything)
 CFIL="$1";
+FFIL="";
 
 # Fetch mode (Fetch from the git repository)
 if [ "$CFIL" == "--fetch" ] || [ "$CFIL" == "--fetch-all" ];
@@ -49,6 +50,11 @@ then
 	# Clean up
 	rm -rf "$HOME/Util.tmp";
 	cd "$pwdbak";
+	# Did we copy any files? If not, exit now
+	if [ "$CFIL" != "--fetch-all" ] && [ -z "$UTIL_DIFF_LIST" ];
+	then
+		exit 0;
+	fi
 fi
 
 if [ -z "$1" ];
