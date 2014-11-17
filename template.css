@@ -42,6 +42,11 @@ article.main-right {
 	float: right;
 	width: 70%;
 }
+article.main-full {
+	/* Styles for primary content block (full width, no sidebar) */
+	clear: both;
+	width: 100%;
+}
 footer {
 	/* Styles for footer block */
 	clear: both;
