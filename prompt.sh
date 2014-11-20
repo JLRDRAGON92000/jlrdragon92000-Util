@@ -39,6 +39,7 @@ GIT_PS1_SHOWCOLORHINTS=1;
 
 # Aliases
 alias md="mkdir";
+alias rd="rm -r";
 
 # Common small utilities that don't need their own files
 # jrm - Delete all class and source files associated with a Java class
@@ -58,11 +59,6 @@ gitcpush () {
 mkcd () {
 	mkdir "$1";
 	cd "$1";
-}
-
-# rd - Remove a directory recursively
-rd () {
-	rm -r "$1";
 }
 
 # Download something from the C9 workspace
