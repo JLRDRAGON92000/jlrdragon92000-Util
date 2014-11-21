@@ -63,9 +63,9 @@ mkcd () {
 
 # Download something from the C9 workspace
 # C9's new backend changed things a lot, so I have to change this to make up for that
-C9DL_DAV_URLBASE="https://vfs-gce-usw-02.c9.io/vfs/634996/pWHoaKm397vtCYIt/workspace";
+C9DL_DAV_URLBASE="https://vfs-gce-usw-%02d.c9.io/vfs/634996/%s/workspace";
 c9dl () {
-	curl "$C9DL_DAV_URLBASE/$1" -o "$(basename $1)";
+	curl "$(printf $C9DL_DAV_URLBASE $2 $3)/$1" -o "$(basename $1)";
 }
 
 # It turns out cd can already cd into the last used directory
