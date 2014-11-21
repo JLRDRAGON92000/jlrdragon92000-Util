@@ -9,6 +9,7 @@ target="$1";
 
 # Get mode (Currently, this can only be either 'nocopy' or unset)
 EUTIL_NOCOPY="";
+EUTIL_DOCHMOD="";
 
 mode="$2";
 if [ ! -z "$mode" ];
@@ -24,6 +25,14 @@ then
 	esac
 fi
 
+# Is the target a new file? If so, we will make it executable when it comes time to copy it
+if [ ! -e "$UTIL_DIR/$target.sh" ];
+then
+	EUTIL_DOCHMOD="1";
+else
+	EUTIL_DOCHMOD="";
+fi
+
 # Invoke specified editor on script (The user will enter it without a .sh extension, so we add that for them)
 "$EUTIL_EDITOR" "$UTIL_DIR/$target.sh";
 
@@ -32,14 +41,19 @@ fi
 if [ -z "$EUTIL_NOCOPY" ];
 then
 	# Make it executable
-	chmod 755 "$UTIL_DIR/$target.sh";
-	cp "$UTIL_DIR/$target.sh" "$HOME/bin/$target" 2>/dev/null;
-	cpresult="$?";
-	if [ "$cpresult" -ne 0 ];
+	[ -n "$EUTIL_DOCHMOD" ] && chmod 755 "$UTIL_DIR/$target.sh";
+	
+	# Copy it only if it is executable
+	if [ -x "$UTIL_DIR/$target.sh" ];
 	then
-		echo -e "\e[01;31m$UTIL_DIR/$target.sh not found, or $HOME/bin/$target could not be created\e[00m";
-	else
-		echo -e "\e[01;32m$UTIL_DIR/$target.sh -> $HOME/bin/$target\e[00m";
+		cp "$UTIL_DIR/$target.sh" "$HOME/bin/$target" 2>/dev/null;
+		cpresult="$?";
+		if [ "$cpresult" -ne 0 ];
+		then
+			echo -e "\e[01;31m$UTIL_DIR/$target.sh not found, or $HOME/bin/$target could not be created\e[00m";
+		else
+			echo -e "\e[01;32m$UTIL_DIR/$target.sh -> $HOME/bin/$target\e[00m";
+		fi
 	fi
 fi
 
