@@ -4,11 +4,11 @@ LF='\012';
 
 if [ "$(basename $0)" != "jrun" ];
 then
-	echo -e "\e[01;31mNOTICE: \e[00mThis copy of jrun was installed under a name other than \"jrun\".";
+	echo -e "\033[01;31mNOTICE: \033[00mThis copy of jrun was installed under a name other than \"jrun\".";
 fi
 
 compile () {
-	echo -ne "\e[01;34mCompiling class $(basename $filename)... \e[00m";
+	echo -ne "\033[01;34mCompiling class $(basename $filename)... \033[00m";
 	pwdbak=$PWD;
 	if echo "$2" | grep -q "/";
 	then
@@ -33,21 +33,21 @@ compile () {
 	if [ "$stattemp" -eq "1" ];
 	then
 		echo "";
-		echo -e "\e[01;31m$(cat ./.jc.tmp)\e[00m";
+		echo -e "\033[01;31m$(cat ./.jc.tmp)\033[00m";
 		rm "./.jc.tmp";
 		exit 1;
 	elif [ "$stattemp" -eq "2" ];
 	then
-		echo -e "\n\e[01;31mClass $(basename $filename) not found";
+		echo -e "\n\033[01;31mClass $(basename $filename) not found";
 		rm "./.jc.tmp";
 		exit 2;
 	elif [ "$stattemp" -eq "130" ];
 	then
-		echo -e "\n\e[01;31mInterrupted\e[00m";
+		echo -e "\n\033[01;31mInterrupted\033[00m";
 		rm "./.jc.tmp";
 		exit 130;
 	else
-		echo -e "\e[01;32mDone.\e[00m";
+		echo -e "\033[01;32mDone.\033[00m";
 		rm "./.jc.tmp";
 	fi
 }
@@ -83,7 +83,7 @@ runclass () {
 	# echo $cls;
 	# echo $clsl;
 	
-	echo -e "\e[01;34mRunning class $cls\e[00m";
+	echo -e "\033[01;34mRunning class $cls\033[00m";
 	echo "";
 	
 	# echo $@;
@@ -113,14 +113,14 @@ runclass () {
 	echo "";
 	if [ "$statt" -eq 130 ];
 	then
-		echo -e "\e[01;31mClass $cls Ctrl-C'd\e[00m";
+		echo -e "\033[01;31mClass $cls Ctrl-C'd\033[00m";
 		exit 130;
 	elif [ "$statt" -ne 0 ];
 	then
-		echo -e "\e[01;31mClass $cls failed with status code $statt.\e[00m";
+		echo -e "\033[01;31mClass $cls failed with status code $statt.\033[00m";
 		exit $statt;
 	else
-		echo -e "\e[01;32mClass $cls exited with status code $statt.\e[00m";
+		echo -e "\033[01;32mClass $cls exited with status code $statt.\033[00m";
 	fi
 	exit 0;
 }
@@ -136,7 +136,7 @@ elif [ "$param" == "-r" ];
 then
 	if [ ! -e "$PWD/$filename.class" ];
 	then
-		echo -e "\n\e[01;31mClass $(basename $filename) not found";
+		echo -e "\n\033[01;31mClass $(basename $filename) not found";
 		exit 2;
 	else
 		runclass $@;
@@ -156,7 +156,7 @@ then
 	if [ "$rmclsstmp" -eq 0 ]; then echo -n "";
 	elif [ "$rmassocstmp" -eq 0 ]; then echo -n "";
 	else
-		echo -e "\e[01;33mClass $(basename $2) has no pre-existing compiled classes\e[00m";
+		echo -e "\033[01;33mClass $(basename $2) has no pre-existing compiled classes\033[00m";
 	fi
 	
 	compile $@;
@@ -164,11 +164,11 @@ then
 elif [ "$param" == "-us" ];
 then
 	echo "$(date "+%d %b %Y, %H:%M")|$(basename $filename)|SUCCESS" >"./.javaproj.lock";
-	echo -e "\e[01;34mFalsified .javaproj.lock: $(basename $filename) \"built\" at $(date "+%d %b %Y, %H:%M") with successful result";
+	echo -e "\033[01;34mFalsified .javaproj.lock: $(basename $filename) \"built\" at $(date "+%d %b %Y, %H:%M") with successful result";
 elif [ "$param" == "-uf" ];
 then
 	echo "$(date "+%d %b %Y, %H:%M")|$(basename $filename)|FAILURE" >"./.javaproj.lock";
-	echo -e "\e[01;34mFalsified .javaproj.lock: $(basename $filename) \"built\" at $(date "+%d %b %Y, %H:%M") with failed result";
+	echo -e "\033[01;34mFalsified .javaproj.lock: $(basename $filename) \"built\" at $(date "+%d %b %Y, %H:%M") with failed result";
 elif [ "$param" == "-i" ];
 then
 	cp "$0" "$HOME/bin/jrun";
@@ -181,19 +181,19 @@ then
 	echo "jrun successfully installed at $2.";
 elif [ "$param" == "--help" ];
 then
-	echo -e "\e[01;37mjrun\e[00m - Compiles and runs Java classes";
+	echo -e "\033[01;37mjrun\033[00m - Compiles and runs Java classes";
 	echo -e "usage: $(basename $0) <-a|-c|-r|-x|-i|-if> <classname> [args]";
 	echo -e "options:";
-	echo -e "	\e[01;37m-a\e[00m	Compile and run the given class";
-	echo -e "	\e[01;37m-c\e[00m	Compile the given class";
-	echo -e "	\e[01;37m-r\e[00m	Run the given class";
-	echo -e "	\e[01;37m-x\e[00m	Compile and run the given class, but delete preexisting class files first";
-	echo -e "	\e[01;37m-i\e[00m	Install jrun to your system at the default location ~/bin/jrun";
-	echo -e "	\e[01;37m-if\e[00m	Install jrun to your system at given path";
+	echo -e "	\033[01;37m-a\033[00m	Compile and run the given class";
+	echo -e "	\033[01;37m-c\033[00m	Compile the given class";
+	echo -e "	\033[01;37m-r\033[00m	Run the given class";
+	echo -e "	\033[01;37m-x\033[00m	Compile and run the given class, but delete preexisting class files first";
+	echo -e "	\033[01;37m-i\033[00m	Install jrun to your system at the default location ~/bin/jrun";
+	echo -e "	\033[01;37m-if\033[00m	Install jrun to your system at given path";
 	# This isn't the C9-specific implementation anymore, so this line isn't needed
-	# echo -e "\e[01;37mNOTE: \e[00mThis implementation of jrun is designed for use on Cloud9. It may need to be adapted for use on your particular setup.";
+	# echo -e "\033[01;37mNOTE: \033[00mThis implementation of jrun is designed for use on Cloud9. It may need to be adapted for use on your particular setup.";
 else
-	echo -e "\e[01;31m$(basename $0): invalid option -- '${param:1}'\e[00m";
-	echo -e "\e[01;31m$(basename $0): Try \`$(basename $0) --help' for more information.\e[00m"
+	echo -e "\033[01;31m$(basename $0): invalid option -- '${param:1}'\033[00m";
+	echo -e "\033[01;31m$(basename $0): Try \`$(basename $0) --help' for more information.\033[00m"
 	exit 2;
 fi

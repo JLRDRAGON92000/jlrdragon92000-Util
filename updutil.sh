@@ -41,8 +41,8 @@ then
 		UTIL_DIFF_LISTD="$UTIL_DIFF_LIST";
 	fi
 	# Show the diff list
-	echo -e "\e[01;32mFiles to be changed:
-\e[01;37m$UTIL_DIFF_LISTD\e[00m";
+	echo -e "\033[01;32mFiles to be changed:
+\033[01;37m$UTIL_DIFF_LISTD\033[00m";
 	
 	# If no files changed, stop now
 	if [ -z "$UTIL_DIFF_LIST" ] && [ "$CFIL" != "--fetch-all" ];
@@ -92,16 +92,16 @@ do
 		cpresult="$?";
 		if [ "$cpresult" -ne 0 ];
 		then
-			echo -e "\e[01;31m$UTIL_DIR/$CFIL.sh not found\e[00m";
+			echo -e "\033[01;31m$UTIL_DIR/$CFIL.sh not found\033[00m";
 		else
-			echo -e "\e[01;32m$FNAME -> $HOME/bin/$(basename ${FNAME%\.sh})\e[00m";
+			echo -e "\033[01;32m$FNAME -> $HOME/bin/$(basename ${FNAME%\.sh})\033[00m";
 		fi
 	else
 		if [ "$CFIL" == "*" ];
 		then
-			echo -e "\e[01;31m$FNAME not executable\e[00m";
+			echo -e "\033[01;31m$FNAME not executable\033[00m";
 		else
-			echo -e "\e[01;31m$UTIL_DIR/$CFIL.sh not found or not executable\e[00m";
+			echo -e "\033[01;31m$UTIL_DIR/$CFIL.sh not found or not executable\033[00m";
 		fi
 
 	fi

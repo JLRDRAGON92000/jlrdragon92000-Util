@@ -20,7 +20,7 @@ then
 			EUTIL_NOCOPY="1";;
 		*)
 			# The user entered an invalid mode, warn them
-			echo -e "\e[01;31mValid mode arguments are: nocopy\e[00m";
+			echo -e "\033[01;31mValid mode arguments are: nocopy\033[00m";
 			exit 1;
 	esac
 fi
@@ -50,9 +50,9 @@ then
 		cpresult="$?";
 		if [ "$cpresult" -ne 0 ];
 		then
-			echo -e "\e[01;31m$UTIL_DIR/$target.sh not found, or $HOME/bin/$target could not be created\e[00m";
+			echo -e "\033[01;31m$UTIL_DIR/$target.sh not found, or $HOME/bin/$target could not be created\033[00m";
 		else
-			echo -e "\e[01;32m$UTIL_DIR/$target.sh -> $HOME/bin/$target\e[00m";
+			echo -e "\033[01;32m$UTIL_DIR/$target.sh -> $HOME/bin/$target\033[00m";
 		fi
 	fi
 fi

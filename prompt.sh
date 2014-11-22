@@ -104,7 +104,7 @@ longestw () {
 # List PS1 modes
 ps1_list () {
 	local SEARCH_DIR llng lngst ps1ln finout;
-	echo -e "\e[01;33mGetting PS1 modes from directory...\e[00m";
+	echo -e "\033[01;33mGetting PS1 modes from directory...\033[00m";
 	let lngst=0;
 	SEARCH_DIR="$PS1M_DIR";
 	for FN in $SEARCH_DIR/*.sh;
@@ -127,7 +127,7 @@ ps1_list () {
 	ps1lnx="Long name";
 	let flngx=$llng-${#ps1lnx};
 	let flng=$flngx-2;
-	finout=$finout$(echo "\e[A\e[01;33m$ps1lnx" "\e(0${fil:0:flng}\e(B" "\e[01;33mShort name\n");
+	finout=$finout$(echo "\033[A\033[01;33m$ps1lnx" "\033(0${fil:0:flng}\033(B" "\033[01;33mShort name\n");
 	for FN in $SEARCH_DIR/*.sh;
 	do
 		ps1lnx="$(ps1_longname -p $FN)";
@@ -135,9 +135,9 @@ ps1_list () {
 		let flng=$flngx-2;
 		if [ "$(basename $FN)" == "$PS1MODELAST.sh" ];
 		then
-			finout=$finout$(echo "\e[01;34m"$(ps1_longname -p "$FN") "\e(0${fil:0:flng}\e(B" "\e[01;34m"$(ps1_shortname -p "$FN")"\n");
+			finout=$finout$(echo "\033[01;34m"$(ps1_longname -p "$FN") "\033(0${fil:0:flng}\033(B" "\033[01;34m"$(ps1_shortname -p "$FN")"\n");
 		else
-			finout=$finout$(echo "\e[01;37m"$(ps1_longname -p "$FN") "\e(0${fil:0:flng}\e(B" "\e[00m"$(ps1_shortname -p "$FN")"\n");
+			finout=$finout$(echo "\033[01;37m"$(ps1_longname -p "$FN") "\033(0${fil:0:flng}\033(B" "\033[00m"$(ps1_shortname -p "$FN")"\n");
 		fi
 	done
 	echo -e "$finout";
@@ -174,7 +174,7 @@ ps1_add () {
 		read -r shn;
 		echo -n "Long name: ";
 		read -r lon;
-		echo -e "\e[01;33mNOTICE: The system will automatically add a space to the end of PS1, PS2, PS3, and PS4.\e[00m";
+		echo -e "\033[01;33mNOTICE: The system will automatically add a space to the end of PS1, PS2, PS3, and PS4.\033[00m";
 		echo -n "PS1 string: ";
 		read -r p1s;
 		echo -n "PS2 string: ";
@@ -200,7 +200,7 @@ ps1_add () {
 	fi
 	SEARCH_DIR="$PS1M_DIR";
 	echo -n "$shn	$lon	$p1s 	$p2s 	$p3s 	$p4s 	$prc	$ini	$gds	$gss	$guf	$gup	$gch" >"$SEARCH_DIR/$shn.sh";
-	echo -e "\e[01;33mNew PS1 mode \"\e[01;31m$lon\e[01;33m\" created successfully.";
+	echo -e "\033[01;33mNew PS1 mode \"\033[01;31m$lon\033[01;33m\" created successfully.";
 }
 # Remove a PS1 mode (though you could just do this with rm, but it is easier when you don't have to cd into the directory, or type a fully qualified pathname)
 ps1_rm () {
@@ -213,7 +213,7 @@ ps1_rm () {
 		skwd="$1";
 		if [ -e "$SEARCH_DIR/$skwd.sh" ];
 		then
-			echo -e "\e[01;33mPS1 mode \"\e[01;31m$(ps1_longname $skwd)\e[01;33m\" removed successfully."
+			echo -e "\033[01;33mPS1 mode \"\033[01;31m$(ps1_longname $skwd)\033[01;33m\" removed successfully."
 			rm "$SEARCH_DIR/$skwd.sh";
 		else
 			disperr "fatal" "The specified PS1 mode was not found.";
@@ -253,7 +253,7 @@ ps1_cust () {
 		read -r shn;
 		echo -n "Long name: ";
 		read -r lon;
-		echo -e "\e[01;33mNOTICE: The system will automatically add a space to the end of PS1, PS2, PS3, and PS4.\e[00m";
+		echo -e "\033[01;33mNOTICE: The system will automatically add a space to the end of PS1, PS2, PS3, and PS4.\033[00m";
 		echo -n "PS1 string: ";
 		read -r p1s;
 		echo -n "PS2 string: ";
@@ -281,7 +281,7 @@ ps1_cust () {
 	echo -n "$shn	$lon	$p1s 	$p2s 	$p3s 	$p4s 	$prc	$ini	$gds	$gss	$guf	$gup	$gch" >"$SEARCH_DIR/._X_arbcust.sh";
 	ps1_custparseset "$SEARCH_DIR/._X_arbcust.sh";
 	rm "$SEARCH_DIR/._X_arbcust.sh";
-	echo -e "\e[01;33mUsing custom PS1 mode \"$lon\".";
+	echo -e "\033[01;33mUsing custom PS1 mode \"$lon\".";
 }
 # Look up the long name of a PS1 mode
 ps1_longname () {
@@ -313,55 +313,55 @@ ps1_help () {
 		# If the user doesn't specify anything, display the general help
 		echo -e "\
 
-    \e[01;33m=== PS1 MODE SYSTEM HELP ===\e[00m
+    \033[01;33m=== PS1 MODE SYSTEM HELP ===\033[00m
     This system switches between various PS1 modes defined by files.
 
-    \e[01;33m--- COMMANDS ---\e[00m
-    \e[01;37mps1 -------------- \e[00mSwitch PS1 modes
-    \e[01;37mps1_list --------- \e[00mList all available PS1 modes
-    \e[01;37mps1_add ---------- \e[00mAdd a new PS1 mode
-    \e[01;37mps1_rm ----------- \e[00mRemove an existing PS1 mode
-    \e[01;37mps1_help --------- \e[00mDisplay this help
-    \e[01;37mps1_longname ----- \e[00mLook up the long name of a PS1 mode
-    \e[01;37mps1_shortname ---- \e[00mLook up the short name of a PS1 mode
-    \e[01;37mps1_custget ------ \e[00mResolve a PS1 mode short name into the path for its file
-    \e[01;37mps1_custparseset - \e[00mRead a PS1 mode file and set PS1 and associated variables
-    Type \"\e[01;33mps1_help COMMAND\e[00m\" for help on each command.
-    Type \"\e[01;33mps1_help filesyntax\e[00m\" to learn about writing custom PS1 mode files.
+    \033[01;33m--- COMMANDS ---\033[00m
+    \033[01;37mps1 -------------- \033[00mSwitch PS1 modes
+    \033[01;37mps1_list --------- \033[00mList all available PS1 modes
+    \033[01;37mps1_add ---------- \033[00mAdd a new PS1 mode
+    \033[01;37mps1_rm ----------- \033[00mRemove an existing PS1 mode
+    \033[01;37mps1_help --------- \033[00mDisplay this help
+    \033[01;37mps1_longname ----- \033[00mLook up the long name of a PS1 mode
+    \033[01;37mps1_shortname ---- \033[00mLook up the short name of a PS1 mode
+    \033[01;37mps1_custget ------ \033[00mResolve a PS1 mode short name into the path for its file
+    \033[01;37mps1_custparseset - \033[00mRead a PS1 mode file and set PS1 and associated variables
+    Type \"\033[01;33mps1_help COMMAND\033[00m\" for help on each command.
+    Type \"\033[01;33mps1_help filesyntax\033[00m\" to learn about writing custom PS1 mode files.
 	";
 	else
 		# Get the help for a command
 		case "$1" in
-			ps1)				echo -e "\e[01;33musage: \e[01;37mps1 MODENAME [-s]\e[00m\nSwitches to the specified PS1 mode. If -s is given, it does not echo the PS1 mode.";;
-			ps1_list)			echo -e "\e[01;33musage: \e[01;37mps1_list\e[00m\nLists the available PS1 modes.";;
-			ps1_help)			echo -e "\e[01;33musage: \e[01;37mps1_help [COMMAND]\e[00m\nDisplays this help. If COMMAND is given, displays the help for COMMAND.";;
-			ps1_longname)		echo -e "\e[01;33musage: \e[01;37mps1_longname [-p] PS1MODE\e[00m\nGets the long name of a PS1 mode. If -p is given, PS1MODE will be used as a path to the desired PS1 mode file,\notherwise PS1MODE is the short name of the PS1 mode.";;
-			ps1_shortname)		echo -e "\e[01;33musage: \e[01;37mps1_shortname [-p] PS1MODE\e[00m\nGets the short name of a PS1 mode. If -p is given, PS1MODE will be used as a path to the desired PS1 mode file,\notherwise PS1MODE is the short name of the PS1 mode.";;
-			ps1_custget)		echo -e "\e[01;33musage: \e[01;37mps1_custget PS1MODE\e[00m\nResolve the given PS1 mode short name to a path to a PS1 mode file.";;
-			ps1_custparseset)	echo -e "\e[01;33musage: \e[01;37mps1_custparseset PS1MPATH\e[00m\nParses a PS1 mode file and sets PS1 and associated variables accordingly. PS1MPATH is a path to a PS1 mode file.";;
-			ps1_add)			echo -e "\e[01;33musage: \e[01;37mps1_add [-a ARGS...]\e[00m\nCreates a new PS1 mode. If the -a option is given, ps1_add will take the PS1 mode parameters as arguments in the following order:\nlong name, short name, PS1, PS2, PS3, PS4, PROMPT_COMMAND, initialization code, GIT_PS1_SHOWDIRTYSTATE, GIT_PS1_SHOWSTASHSTATE, GIT_PS1_SHOWUNTRACKEDFILES, GIT_PS1_SHOWUPSTREAM, GIT_PS1_SHOWCOLORHINTS\nOtherwise ps1_add will prompt for each parameter individually.";;
-			ps1_rm)				echo -e "\e[01;33musage: \e[01;37mps1_rm MODENAME\e[00m\nRemoves the specified PS1 mode.";;
+			ps1)				echo -e "\033[01;33musage: \033[01;37mps1 MODENAME [-s]\033[00m\nSwitches to the specified PS1 mode. If -s is given, it does not echo the PS1 mode.";;
+			ps1_list)			echo -e "\033[01;33musage: \033[01;37mps1_list\033[00m\nLists the available PS1 modes.";;
+			ps1_help)			echo -e "\033[01;33musage: \033[01;37mps1_help [COMMAND]\033[00m\nDisplays this help. If COMMAND is given, displays the help for COMMAND.";;
+			ps1_longname)		echo -e "\033[01;33musage: \033[01;37mps1_longname [-p] PS1MODE\033[00m\nGets the long name of a PS1 mode. If -p is given, PS1MODE will be used as a path to the desired PS1 mode file,\notherwise PS1MODE is the short name of the PS1 mode.";;
+			ps1_shortname)		echo -e "\033[01;33musage: \033[01;37mps1_shortname [-p] PS1MODE\033[00m\nGets the short name of a PS1 mode. If -p is given, PS1MODE will be used as a path to the desired PS1 mode file,\notherwise PS1MODE is the short name of the PS1 mode.";;
+			ps1_custget)		echo -e "\033[01;33musage: \033[01;37mps1_custget PS1MODE\033[00m\nResolve the given PS1 mode short name to a path to a PS1 mode file.";;
+			ps1_custparseset)	echo -e "\033[01;33musage: \033[01;37mps1_custparseset PS1MPATH\033[00m\nParses a PS1 mode file and sets PS1 and associated variables accordingly. PS1MPATH is a path to a PS1 mode file.";;
+			ps1_add)			echo -e "\033[01;33musage: \033[01;37mps1_add [-a ARGS...]\033[00m\nCreates a new PS1 mode. If the -a option is given, ps1_add will take the PS1 mode parameters as arguments in the following order:\nlong name, short name, PS1, PS2, PS3, PS4, PROMPT_COMMAND, initialization code, GIT_PS1_SHOWDIRTYSTATE, GIT_PS1_SHOWSTASHSTATE, GIT_PS1_SHOWUNTRACKEDFILES, GIT_PS1_SHOWUPSTREAM, GIT_PS1_SHOWCOLORHINTS\nOtherwise ps1_add will prompt for each parameter individually.";;
+			ps1_rm)				echo -e "\033[01;33musage: \033[01;37mps1_rm MODENAME\033[00m\nRemoves the specified PS1 mode.";;
 			filesyntax)
-				echo -e "\n    \e[01;33m--- WRITING PS1 MODE FILES ---\e[00m
+				echo -e "\n    \033[01;33m--- WRITING PS1 MODE FILES ---\033[00m
     PS1 modes are stored in PS1 mode files, stored in the directory specified internally by \"\$PS1M_DIR\".
     The syntax of a PS1 mode file is as follows:
-    \e[01;37mLine 1   \e[00mThe short name of this PS1 mode, used from ps1 to switch to it
-    \e[01;37mLine 2   \e[00mThe long name of this PS1 mode, displayed in most places
-    \e[01;37mLine 3   \e[00mThe string to set PS1 to. This should be used as though you were setting PS1 directly
-    \e[01;37mLine 4   \e[00mThe string to set PS2 to. This should be used as though you were setting PS2 directly
-    \e[01;37mLine 5   \e[00mThe string to set PS3 to. This should be used as though you were setting PS3 directly [Substitution and escape codes are not allowed here]
-    \e[01;37mLine 6   \e[00mThe string to set PS4 to. This should be used as though you were setting PS4 directly
-    \e[01;37mLine 7   \e[00mThe string to set PROMPT_COMMAND to. This should be used as though you were setting PROMPT_COMMAND directly
-    \e[01;37mLine 8   \e[00mA string specifying code to run once when switching to this mode
-    \e[01;37mLine 8   \e[00mValue for GIT_PS1_SHOWDIRTYSTATE
-    \e[01;37mLine 9   \e[00mValue for GIT_PS1_SHOWSTASHSTATE
-    \e[01;37mLine 10  \e[00mValue for GIT_PS1_SHOWUNTRACKEDFILES
-    \e[01;37mLine 11  \e[00mValue for GIT_PS1_SHOWUPSTREAM
-    \e[01;37mLine 12  \e[00mValue for GIT_PS1_SHOWCOLORHINTS
+    \033[01;37mLine 1   \033[00mThe short name of this PS1 mode, used from ps1 to switch to it
+    \033[01;37mLine 2   \033[00mThe long name of this PS1 mode, displayed in most places
+    \033[01;37mLine 3   \033[00mThe string to set PS1 to. This should be used as though you were setting PS1 directly
+    \033[01;37mLine 4   \033[00mThe string to set PS2 to. This should be used as though you were setting PS2 directly
+    \033[01;37mLine 5   \033[00mThe string to set PS3 to. This should be used as though you were setting PS3 directly [Substitution and escape codes are not allowed here]
+    \033[01;37mLine 6   \033[00mThe string to set PS4 to. This should be used as though you were setting PS4 directly
+    \033[01;37mLine 7   \033[00mThe string to set PROMPT_COMMAND to. This should be used as though you were setting PROMPT_COMMAND directly
+    \033[01;37mLine 8   \033[00mA string specifying code to run once when switching to this mode
+    \033[01;37mLine 8   \033[00mValue for GIT_PS1_SHOWDIRTYSTATE
+    \033[01;37mLine 9   \033[00mValue for GIT_PS1_SHOWSTASHSTATE
+    \033[01;37mLine 10  \033[00mValue for GIT_PS1_SHOWUNTRACKEDFILES
+    \033[01;37mLine 11  \033[00mValue for GIT_PS1_SHOWUPSTREAM
+    \033[01;37mLine 12  \033[00mValue for GIT_PS1_SHOWCOLORHINTS
     Once these are all entered, replace all of the line breaks with tabs. (This is due in part to an issue with newer versions of cut, where it cannot separate files along the LF character.
-    Name the file \"\e[01;33m<short name of your PS1 mode here>.sh\e[00m\" and put it into the .ps1custopts.lock directory.\n";;
+    Name the file \"\033[01;33m<short name of your PS1 mode here>.sh\033[00m\" and put it into the .ps1custopts.lock directory.\n";;
 			*)
-				echo -e "\e[01;31mThe help topic you requested was not found.\e[00m";
+				echo -e "\033[01;31mThe help topic you requested was not found.\033[00m";
 				return 1;;
 		esac
 	fi
@@ -372,9 +372,9 @@ ps1 () {
 	# Don't allow switching to modes starting with .
 	if [ "${1:0:1}" == "." ];
 	then
-		echo -e "\e[01;31mSwitching to PS1 modes starting with . is not allowed\e[00m";
-		echo -e "\e[01;31m(Files in the modes directory starting with . are usually
-that way for a reason. They are not meant to be used as modes.)\e[00m";
+		echo -e "\033[01;31mSwitching to PS1 modes starting with . is not allowed\033[00m";
+		echo -e "\033[01;31m(Files in the modes directory starting with . are usually
+that way for a reason. They are not meant to be used as modes.)\033[00m";
 		return 1;
 	fi
 	# Find the PS1 mode the user specified
@@ -392,7 +392,7 @@ that way for a reason. They are not meant to be used as modes.)\e[00m";
 		else
 			# Get the PS1 mode long name and display it
 			PS1CLN=$(ps1_longname "$1");
-			echo -e "\e[01;33mPS1 mode set to \e[01;31m$PS1CLN\e[01;33m.\e[00m";
+			echo -e "\033[01;33mPS1 mode set to \033[01;31m$PS1CLN\033[01;33m.\033[00m";
 		fi
 		
 		# Set PS1 according to the PS1 mode file
@@ -404,8 +404,8 @@ that way for a reason. They are not meant to be used as modes.)\e[00m";
 		echo -n "$PS1MODELAST" >"$PS1L_FIL";
 	else
 		# Otherwise, warn the user
-		echo -e "\e[01;31mUnrecognized PS1 mode setting: $1\e[00m";
-		echo -e "\e[01;31mType \"ps1_list\" for a list of available PS1 modes\e[00m";
+		echo -e "\033[01;31mUnrecognized PS1 mode setting: $1\033[00m";
+		echo -e "\033[01;31mType \"ps1_list\" for a list of available PS1 modes\033[00m";
 		return 1;
 	fi
 }
@@ -459,12 +459,12 @@ ps1_custparseset () {
 # Display something with an error level
 disperr () {
 	case "$1" in
-	info)	echo -e "\e[01;32m[INFO]\e[01;37m  $2\e[00m";;
-	warn)	echo -e "\e[01;34m[WARN]\e[01;37m  $2\e[00m";;
-	error)	echo -e "\e[01;33m[ERROR]\e[01;37m $2\e[00m";;
-	fatal)	echo -e "\e[01;31m[FATAL]\e[01;37m $2\e[00m";;
+	info)	echo -e "\033[01;32m[INFO]\033[01;37m  $2\033[00m";;
+	warn)	echo -e "\033[01;34m[WARN]\033[01;37m  $2\033[00m";;
+	error)	echo -e "\033[01;33m[ERROR]\033[01;37m $2\033[00m";;
+	fatal)	echo -e "\033[01;31m[FATAL]\033[01;37m $2\033[00m";;
 	# Default error level is INFO, so use that if an invalid level is supplied
-	*)		echo -e "\e[01;32m[INFO]\e[01;37m  $2\e[00m";;
+	*)		echo -e "\033[01;32m[INFO]\033[01;37m  $2\033[00m";;
 	esac
 }
 
@@ -495,6 +495,6 @@ fi
 
 # Show the startup message
 echo -e "\n\
-    \e[01;33mLogged on to \e[01;31m$HOSTNAME\e[01;33m as \e[01;31m$USER\e[01;33m from \e[01;31m$(if [ -z $SSH_IP ]; then echo 'console'; else echo $SSH_IP; fi;) (${TTY:5})\n\
-    \e[01;33mType \"\e[01;31mps1_help\e[01;33m\" for help with the PS1 mode system\n\
-    \e[01;33mYou are using the \e[01;31m$(ps1_longname $PS1MODELAST)\e[01;33m PS1 mode\n\e[00m";
+    \033[01;33mLogged on to \033[01;31m$HOSTNAME\033[01;33m as \033[01;31m$USER\033[01;33m from \033[01;31m$(if [ -z $SSH_IP ]; then echo 'console'; else echo $SSH_IP; fi;) (${TTY:5})\n\
+    \033[01;33mType \"\033[01;31mps1_help\033[01;33m\" for help with the PS1 mode system\n\
+    \033[01;33mYou are using the \033[01;31m$(ps1_longname $PS1MODELAST)\033[01;33m PS1 mode\n\033[00m";
