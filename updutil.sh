@@ -26,7 +26,7 @@ then
 	# Go to Util/
 	cd "$UTIL_DIR";
 	# Update the HEAD of the upstream
-	git fetch -u "origin" "master";
+	git fetch -u "origin" "bashlt4";
 	# Get the list of different files from the upstream
 	UTIL_DIFF_LIST=$(git diff --name-only @{upstream} -- "$FFIL.sh");
 	
