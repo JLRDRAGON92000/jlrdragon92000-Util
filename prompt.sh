@@ -283,6 +283,12 @@ ps1_cust () {
 	rm "$SEARCH_DIR/._X_arbcust.sh";
 	echo -e "\e[01;33mUsing custom PS1 mode \"$lon\".";
 }
+# Minify a PS1 mode file with newlines in it
+ps1_minify () {
+	local ps1p;
+	ps1p="$(ps1_custget $1)";
+	sed -i ".premin" -e "s/\\n/\\t/g" "$ps1p";
+}
 # Look up the long name of a PS1 mode
 ps1_longname () {
 	local ps1fp;
