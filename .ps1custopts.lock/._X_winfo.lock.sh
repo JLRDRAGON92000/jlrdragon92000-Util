@@ -34,4 +34,4 @@ export promptcmd='
 	cfils=$(ls -al | grep -c "^-");
 	let cothr=$cfils-$cwebf;
 	cdirs=$(ls -Al | grep -c "^d");
-	PS1="$titleb\[\e[01;37m\][\[\e[01;34m\]${dirbase}\[\e[01;37m\]][\[\e[01;33m\]\${ishtaccess}\${cwebf}w \${cothr}o \${cdirs}d\[\e[01;37m\]][\[\e[01;36m\]\$(date \"+%a %m/%d/%Y %H:%M\")\[\e[01;37m\]]\$(__git_ps1 \"[\[\e[01;35m\]%s \$(__git_ps1_show_sha)\[\e[01;37m\]]\")\n\[\e[01;37m\]\$(if [ -z \"\$SSH_IP\" ]; then echo \"LOCAL\"; else echo \$SSH_IP; fi;) -> \${ttytmp:5} \${statshow}\\\$ \[\e[00m\]";';
+	PS1="$titleb\[\e[01;37m\][\[\e[01;34m\]${dirbase}\[\e[01;37m\]][\[\e[01;33m\]\${ishtaccess}\${cwebf}w \${cothr}o \${cdirs}d\[\e[01;37m\]][\[\e[01;36m\]\$(date \"+%a %Y-%m-%d %H:%M\")\[\e[01;37m\]]\$(__git_ps1 \"[\[\e[01;35m\]%s \$(__git_ps1_show_sha)\[\e[01;37m\]]\")\n\[\e[01;37m\]\$(if [ -z \"\$SSH_IP\" ]; then echo \"LOCAL\"; else echo \$SSH_IP; fi;) -> \${ttytmp:5} \${statshow}\\\$ \[\e[00m\]";';

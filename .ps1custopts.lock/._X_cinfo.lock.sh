@@ -43,5 +43,5 @@ export promptcmd='
 		lastbuild_success="";
 		lastbuild_failure="FAILURE";
 	fi;
-	PS1="$titleb\[\e[01;37m\][\[\e[01;34m\]${dirbase}\[\e[01;37m\]][\[\e[01;33m\]\${csrcs}s \${cclss}x \${cothr}o \${cdirs}d\[\e[01;37m\]][\[\e[01;36m\]\${lastbuild_time} ${lastbuild_fil} \[\e[01;32m\]\${lastbuild_success}\[\e[01;31m\]\${lastbuild_failure}\[\e[01;37m\]]\$(__git_ps1 \"[\[\e[01;35m\]%s \$(__git_ps1_show_sha)\[\e[01;37m\]]\")\n\[\e[01;37m\]\$(if [ -z \"\$SSH_IP\" ]; then echo \"LOCAL\"; else echo \$SSH_IP; fi;) -> \${TTY:5} \${statshow}\\\$ \[\e[00m\]";';
+	PS1="$titleb\[\e[01;37m\][\[\e[01;34m\]${dirbase}\[\e[01;37m\]][\[\e[01;33m\]\${csrcs}s \${cclss}x \${cothr}o \${cdirs}d\[\e[01;37m\]][\[\e[01;36m\]\$(date \"+%a %Y-%m-%d %H:%M\")\[\e[01;37m\]][\[\e[01;36m\]\${lastbuild_time} ${lastbuild_fil} \[\e[01;32m\]\${lastbuild_success}\[\e[01;31m\]\${lastbuild_failure}\[\e[01;37m\]]\$(__git_ps1 \"[\[\e[01;35m\]%s \$(__git_ps1_show_sha)\[\e[01;37m\]]\")\n\[\e[01;37m\]\$(if [ -z \"\$SSH_IP\" ]; then echo \"LOCAL\"; else echo \$SSH_IP; fi;) -> \${TTY:5} \${statshow}\\\$ \[\e[00m\]";';
 eval "$promptcmd";
