@@ -37,7 +37,7 @@ fi
 "$EUTIL_EDITOR" "$UTIL_DIR/$target.sh";
 
 # When the user is done, we will copy the newly edited script to ~/bin for them.
-# Functionality reused from updutil, but I didn't want to invoke it directly. (What if they edit it with this, and then break it?)
+# Functionality reused from updutil, but I didn't want to invoke updutil directly. (What if they edit it with this, and then break it?)
 if [ -z "$EUTIL_NOCOPY" ];
 then
 	# Make it executable
