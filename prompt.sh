@@ -104,7 +104,7 @@ longestw () {
 # List PS1 modes
 ps1_list () {
 	local SEARCH_DIR llng lngst ps1ln finout;
-	echo -e "\e[01;33mGetting PS1 modes from directory...\e[00m";
+	echo -e "\e[01;33m[Loading]\e[00m";
 	let lngst=0;
 	SEARCH_DIR="$PS1M_DIR";
 	for FN in $SEARCH_DIR/*.sh;
