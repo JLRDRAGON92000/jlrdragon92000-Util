@@ -13,7 +13,7 @@ then
 	case "$1" in
 		-c)
 			echo -e "\e[01;34mCompiling ${2}...\e[00m";
-			gcc -Wall -g "${2}.c" -o "${2}.exe";
+			gcc -Wall -g "${2}.c" -o "${2}.x";
 			gccexttmp="$?";
 			if [ "$gccexttmp" -eq 0 ];
 			then
@@ -37,7 +37,7 @@ then
 				let argi+=1;
 			done
 			echo -e "\e[01;34mRunning ${2}\e[00m"
-			./"${2}.exe" $args;
+			./"${2}.x" $args;
 			pxt="$?";
 			if [ "$pxt" -eq 0 ];
 			then
@@ -48,7 +48,7 @@ then
 			exit $pxt;;
 		-a)
 			echo -e "\e[01;34mCompiling ${2}...\e[00m";
-			gcc -Wall -g "${2}.c" -o "${2}.exe";
+			gcc -Wall -g "${2}.c" -o "${2}.x";
 			gccexttmp="$?";
 			if [ "$gccexttmp" -eq 0 ];
 			then
@@ -66,7 +66,7 @@ then
 					let argi+=1;
 				done
 				echo -e "\e[01;34mRunning ${2}\e[00m"
-				./"${2}.exe" $args;
+				./"${2}.x" $args;
 				prgexttmp="$?";
 				if [ "$prgexttmp" -eq 0 ];
 				then
