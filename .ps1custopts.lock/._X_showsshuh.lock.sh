@@ -4,7 +4,7 @@ SSHUH_LOCK_FPATH="$PS1M_DIR/._X_sshuh.lock";
 export PROMPT_SHOW_SSH_UH=$(cat "$SSHUH_LOCK_FPATH");
 
 # sshuh - Allows the user to change this from the command line
-function sshuh () {
+sshuh () {
 	sshuhmod="$1";
 	case $sshuhmod in
 		always)
