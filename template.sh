@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Copy Util/template.html to the current directory, and optionally copy the stylesheet (template.css) to a specified directory relative to the current one
+# template: Copy Util/template.html to the current directory, and optionally copy the stylesheet (template.css) to a specified directory relative to the current one
 
 # Constants for the locations
 TEMPLATE_FPATH="$UTIL_DIR/template.html";
