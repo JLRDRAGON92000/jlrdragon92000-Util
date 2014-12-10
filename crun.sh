@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# crun: Compile and execute a C program.
+# Requires gcc
+# Compatible with ainfo PS1 mode (Also in Util/)
+
 DEF_INST_DIR="$HOME/bin/crun";
 
 if [ "$#" -lt 1 ];

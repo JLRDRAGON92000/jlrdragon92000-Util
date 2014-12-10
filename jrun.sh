@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# jrun: Compile and run a Java program
+# Requires Java
+# Compatible with ainfo PS1 mode (Also in Util/)
+
 LF='\012';
 
 if [ "$(basename $0)" != "jrun" ];
