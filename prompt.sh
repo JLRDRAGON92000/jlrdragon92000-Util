@@ -348,21 +348,23 @@ ps1_help () {
     \e[01;37mps1_shortname ---- \e[00mLook up the short name of a PS1 mode
     \e[01;37mps1_custget ------ \e[00mResolve a PS1 mode short name into the path for its file
     \e[01;37mps1_custparseset - \e[00mRead a PS1 mode file and set PS1 and associated variables
+    \e[01;37mps1_minify ------- \e[00mRead a PS1 mode file and replace newlines with tabs
     Type \"\e[01;33mps1_help COMMAND\e[00m\" for help on each command.
     Type \"\e[01;33mps1_help filesyntax\e[00m\" to learn about writing custom PS1 mode files.
 	";
 	else
 		# Get the help for a command
 		case "$1" in
-			ps1)				echo -e "\e[01;33musage: \e[01;37mps1 MODENAME [-s]\e[00m\nSwitches to the specified PS1 mode. If -s is given, it does not echo the PS1 mode.";;
-			ps1_list)			echo -e "\e[01;33musage: \e[01;37mps1_list\e[00m\nLists the available PS1 modes.";;
-			ps1_help)			echo -e "\e[01;33musage: \e[01;37mps1_help [COMMAND]\e[00m\nDisplays this help. If COMMAND is given, displays the help for COMMAND.";;
+			ps1)			echo -e "\e[01;33musage: \e[01;37mps1 MODENAME [-s]\e[00m\nSwitches to the specified PS1 mode. If -s is given, it does not echo the PS1 mode.";;
+			ps1_list)		echo -e "\e[01;33musage: \e[01;37mps1_list\e[00m\nLists the available PS1 modes.";;
+			ps1_help)		echo -e "\e[01;33musage: \e[01;37mps1_help [COMMAND]\e[00m\nDisplays this help. If COMMAND is given, displays the help for COMMAND.";;
 			ps1_longname)		echo -e "\e[01;33musage: \e[01;37mps1_longname [-p] PS1MODE\e[00m\nGets the long name of a PS1 mode. If -p is given, PS1MODE will be used as a path to the desired PS1 mode file,\notherwise PS1MODE is the short name of the PS1 mode.";;
 			ps1_shortname)		echo -e "\e[01;33musage: \e[01;37mps1_shortname [-p] PS1MODE\e[00m\nGets the short name of a PS1 mode. If -p is given, PS1MODE will be used as a path to the desired PS1 mode file,\notherwise PS1MODE is the short name of the PS1 mode.";;
 			ps1_custget)		echo -e "\e[01;33musage: \e[01;37mps1_custget PS1MODE\e[00m\nResolve the given PS1 mode short name to a path to a PS1 mode file.";;
 			ps1_custparseset)	echo -e "\e[01;33musage: \e[01;37mps1_custparseset PS1MPATH\e[00m\nParses a PS1 mode file and sets PS1 and associated variables accordingly. PS1MPATH is a path to a PS1 mode file.";;
-			ps1_add)			echo -e "\e[01;33musage: \e[01;37mps1_add [-a ARGS...]\e[00m\nCreates a new PS1 mode. If the -a option is given, ps1_add will take the PS1 mode parameters as arguments in the following order:\nlong name, short name, PS1, PS2, PS3, PS4, PROMPT_COMMAND, initialization code, GIT_PS1_SHOWDIRTYSTATE, GIT_PS1_SHOWSTASHSTATE, GIT_PS1_SHOWUNTRACKEDFILES, GIT_PS1_SHOWUPSTREAM, GIT_PS1_SHOWCOLORHINTS\nOtherwise ps1_add will prompt for each parameter individually.";;
-			ps1_rm)				echo -e "\e[01;33musage: \e[01;37mps1_rm MODENAME\e[00m\nRemoves the specified PS1 mode.";;
+			ps1_add)		echo -e "\e[01;33musage: \e[01;37mps1_add [-a ARGS...]\e[00m\nCreates a new PS1 mode. If the -a option is given, ps1_add will take the PS1 mode parameters as arguments in the following order:\nlong name, short name, PS1, PS2, PS3, PS4, PROMPT_COMMAND, initialization code, GIT_PS1_SHOWDIRTYSTATE, GIT_PS1_SHOWSTASHSTATE, GIT_PS1_SHOWUNTRACKEDFILES, GIT_PS1_SHOWUPSTREAM, GIT_PS1_SHOWCOLORHINTS\nOtherwise ps1_add will prompt for each parameter individually.";;
+			ps1_rm)			echo -e "\e[01;33musage: \e[01;37mps1_rm MODENAME\e[00m\nRemoves the specified PS1 mode.";;
+			ps1_minify)		echo -e "\e[01;33musage: \e[01;37mps1_minify MODENAME\e[00m\n'Minifies' the specified PS1 mode, removing all newline characters and replacing them with tabs.";;
 			filesyntax)
 				echo -e "\n    \e[01;33m--- WRITING PS1 MODE FILES ---\e[00m
     PS1 modes are stored in PS1 mode files, stored in the directory specified internally by \"\$PS1M_DIR\".
@@ -380,8 +382,8 @@ ps1_help () {
     \e[01;37mLine 10  \e[00mValue for GIT_PS1_SHOWUNTRACKEDFILES
     \e[01;37mLine 11  \e[00mValue for GIT_PS1_SHOWUPSTREAM
     \e[01;37mLine 12  \e[00mValue for GIT_PS1_SHOWCOLORHINTS
-    Once these are all entered, replace all of the line breaks with tabs. (This is due in part to an issue with newer versions of cut, where it cannot separate files along the LF character.
-    Name the file \"\e[01;33m<short name of your PS1 mode here>.sh\e[00m\" and put it into the .ps1custopts.lock directory.\n";;
+    Name the file \"\e[01;33m<short name of your PS1 mode here>.sh\e[00m\" and put it into the .ps1custopts.lock directory.
+    Once this is finished, run ps1_minify against your PS1 mode. (It will not work correctly if you do not do this!)\n";;
 			*)
 				echo -e "\e[01;31mThe help topic you requested was not found.\e[00m";
 				return 1;;
