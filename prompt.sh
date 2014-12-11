@@ -377,11 +377,11 @@ ps1_help () {
     \e[01;37mLine 6   \e[00mThe string to set PS4 to. This should be used as though you were setting PS4 directly
     \e[01;37mLine 7   \e[00mThe string to set PROMPT_COMMAND to. This should be used as though you were setting PROMPT_COMMAND directly
     \e[01;37mLine 8   \e[00mA string specifying code to run once when switching to this mode
-    \e[01;37mLine 8   \e[00mValue for GIT_PS1_SHOWDIRTYSTATE
-    \e[01;37mLine 9   \e[00mValue for GIT_PS1_SHOWSTASHSTATE
-    \e[01;37mLine 10  \e[00mValue for GIT_PS1_SHOWUNTRACKEDFILES
-    \e[01;37mLine 11  \e[00mValue for GIT_PS1_SHOWUPSTREAM
-    \e[01;37mLine 12  \e[00mValue for GIT_PS1_SHOWCOLORHINTS
+    \e[01;37mLine 9   \e[00mValue for GIT_PS1_SHOWDIRTYSTATE
+    \e[01;37mLine 10   \e[00mValue for GIT_PS1_SHOWSTASHSTATE
+    \e[01;37mLine 11  \e[00mValue for GIT_PS1_SHOWUNTRACKEDFILES
+    \e[01;37mLine 12  \e[00mValue for GIT_PS1_SHOWUPSTREAM
+    \e[01;37mLine 13  \e[00mValue for GIT_PS1_SHOWCOLORHINTS
     Name the file \"\e[01;33m<short name of your PS1 mode here>.sh\e[00m\" and put it into the .ps1custopts.lock directory.
     Once this is finished, run \e[01;33mps1_minify\e[00m against your PS1 mode. (It will not work correctly if you do not do this!)\n";;
 			*)
