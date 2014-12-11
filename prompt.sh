@@ -383,7 +383,7 @@ ps1_help () {
     \e[01;37mLine 11  \e[00mValue for GIT_PS1_SHOWUPSTREAM
     \e[01;37mLine 12  \e[00mValue for GIT_PS1_SHOWCOLORHINTS
     Name the file \"\e[01;33m<short name of your PS1 mode here>.sh\e[00m\" and put it into the .ps1custopts.lock directory.
-    Once this is finished, run ps1_minify against your PS1 mode. (It will not work correctly if you do not do this!)\n";;
+    Once this is finished, run \e[01;33mps1_minify\e[00m against your PS1 mode. (It will not work correctly if you do not do this!)\n";;
 			*)
 				echo -e "\e[01;31mThe help topic you requested was not found.\e[00m";
 				return 1;;
