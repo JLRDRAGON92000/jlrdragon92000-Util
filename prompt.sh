@@ -305,6 +305,28 @@ ps1_shortname () {
 	fi
 	echo $(cut -f1 -d"	" "$ps1fp");
 }
+# Replace the newlines in a file with tabs
+ps1_minify () {
+	SEARCH_DIR="$PS1M_DIR";
+	finput="$SEARCH_DIR/$1.sh";
+	finputold="$SEARCH_DIR/$1.sh.pre";
+	if [ ! -e "$finput" ];
+	then
+		disperr "fatal" "The specified PS1 mode was not found.";
+		return 1;
+	fi
+	mv "$finput" "$finputold";
+	tr '\n' '\t' <$finputold >$finput;
+	stattmp="$?";
+	if [ $stattmp -gt 0 ];
+	then 
+		disperr "error" "$1 not minified successfully.";
+		return $stattmp;
+	else
+		rm "$finputold";
+		return 0;
+	fi
+}
 
 # Display the help for the prompt switching system
 ps1_help () {
