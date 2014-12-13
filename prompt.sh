@@ -21,8 +21,14 @@ export TTY="$(tty)";
 
 # Constants for the prompt and associated utilities
 export UTIL_DIR="$HOME/Util";
+export HOME_BIN_DIR="$HOME/bin";
 export PS1L_FIL="$UTIL_DIR/.ps1modelast.lock";
 export PS1M_DIR="$UTIL_DIR/.ps1custopts.lock";
+
+# If the user's private bin does not exist, create it
+[ -d "$HOME_BIN_DIR" ] && mkdir "$HOME_BIN_DIR";
+# Add it to the PATH
+PATH="$PATH:$HOME_BIN_DIR";
 
 # Source git-prompt.sh from here instead of ~/.git-prompt.sh, which does not show upstream names
 source "$UTIL_DIR/git-prompt.sh";

@@ -46,13 +46,13 @@ then
 	# Copy it only if it is executable
 	if [ -x "$UTIL_DIR/$target.sh" ];
 	then
-		cp "$UTIL_DIR/$target.sh" "$HOME/bin/$target" 2>/dev/null;
+		cp "$UTIL_DIR/$target.sh" "$HOME_BIN_DIR/$target" 2>/dev/null;
 		cpresult="$?";
 		if [ "$cpresult" -ne 0 ];
 		then
-			echo -e "\e[01;31m$UTIL_DIR/$target.sh not found, or $HOME/bin/$target could not be created\e[00m";
+			echo -e "\e[01;31m$UTIL_DIR/$target.sh not found, or $HOME_BIN_DIR/$target could not be created\e[00m";
 		else
-			echo -e "\e[01;32m$UTIL_DIR/$target.sh -> $HOME/bin/$target\e[00m";
+			echo -e "\e[01;32m$UTIL_DIR/$target.sh -> $HOME_BIN_DIR/$target\e[00m";
 		fi
 	fi
 fi
