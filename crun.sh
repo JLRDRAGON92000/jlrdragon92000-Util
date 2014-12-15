@@ -8,11 +8,11 @@ DEF_INST_DIR="$HOME/bin/crun";
 
 if [ "$#" -lt 1 ];
 then
-	echo -e "\e[01;33musage: crun <-a|-c|-r> <sourcename>\e[00m";
+	echo -e "\e[01;33musage: crun -a|-c|-r sourcename [args]\e[00m";
 	exit 2;
 fi
 
-if [ -e "$2.c" ] || [ "$1" == "-i" ] || [ "$1" == "-if" ] || [ "$1" == "-us" ] || [ "$1" == "-uf" ];
+if [ -e "$2.c" ] || [ "$1" == "-i" ] || [ "$1" == "-if" ] || [ "$1" == "-us" ] || [ "$1" == "-uf" ] || [ "$1" == "--help" ];
 then
 	case "$1" in
 		-c)
@@ -114,6 +114,16 @@ then
 			else
 				echo -e "\e[01;34mcrun installed successfully at ${2}.";
 			fi;;
+		--help)
+			echo -e "\e[01;37mcrun\e[00m - Compiles and runs C source files";
+			echo -e "usage: \e[01;37mcrun\e[00m -a|-c|-r|-i|-if sourcename [args]";
+			echo -e "options:";
+			echo -e "	\e[01;37m-a\e[00m	Compile and run the specified source";
+			echo -e "	\e[01;37m-c\e[00m	Compile the specified source";
+			echo -e "	\e[01;37m-r\e[00m	Run the executable corresponding to the specified source";
+			echo -e "	\e[01;37m-i\e[00m	Install crun at default location ~/bin/crun";
+			echo -e "	\e[01;37m-if\e[00m	Install crun at given location";
+			;;
 	esac
 else
 	echo -e "\e[01;33mSource ${2} not found.\e[00m";

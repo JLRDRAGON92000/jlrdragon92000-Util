@@ -185,8 +185,8 @@ then
 	echo "jrun successfully installed at $2.";
 elif [ "$param" == "--help" ];
 then
-	echo -e "\e[01;37mjrun\e[00m - Compiles and runs Java classes";
-	echo -e "usage: $(basename $0) <-a|-c|-r|-x|-i|-if> <classname> [args]";
+	echo -e "\e[01;37mjrun\e[00m - Compiles and runs Java classes\e[00m";
+	echo -e "usage: \e[01;37m$(basename $0)\e[00m -a|-c|-r|-x|-i|-if classname [args]";
 	echo -e "options:";
 	echo -e "	\e[01;37m-a\e[00m	Compile and run the given class";
 	echo -e "	\e[01;37m-c\e[00m	Compile the given class";
