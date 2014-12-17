@@ -24,6 +24,7 @@ export UTIL_DIR="$HOME/Util";
 export HOME_BIN_DIR="$HOME/bin";
 export PS1L_FIL="$UTIL_DIR/.ps1modelast.lock";
 export PS1M_DIR="$UTIL_DIR/.ps1custopts.lock";
+export UTIL_LOGPATH="$UTIL_DIR/util-logins.log";
 
 # If the user's private bin does not exist, create it
 [ ! -d "$HOME_BIN_DIR" ] && mkdir "$HOME_BIN_DIR";
@@ -511,6 +512,10 @@ __git_ps1_show_sha () {
 	fi
 	echo "$shastr";
 }
+
+# Log this login
+$UTIL_DIR/logentry.sh;
+
 # Load the PS1 last mode file
 export PS1MODELAST=$(cat "$PS1L_FIL");
 # Start in whatever PS1 mode I left it in, otherwise start it in full mode
