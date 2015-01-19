@@ -8,6 +8,9 @@ case $TERM in
 	xterm*|rxvt*)
 		export USE_LINEDRAW_ESCS="1";
 		export USE_TITLEBAR="1";;
+	cygwin)
+		export USE_LINEDRAW_ESCS="";
+		export USE_TITLEBAR="1";;
 	*)
 		export USE_LINEDRAW_ESCS="";
 		export USE_TITLEBAR="";
