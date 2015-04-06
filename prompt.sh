@@ -31,8 +31,9 @@ export UTIL_LOGPATH="$UTIL_DIR/util-logins.log";
 
 # If the user's private bin does not exist, create it
 [ ! -d "$HOME_BIN_DIR" ] && mkdir "$HOME_BIN_DIR";
-# Add it to the PATH
-PATH="$PATH:$HOME_BIN_DIR";
+
+# Add it to the PATH if it's not already there
+(echo "$PATH" | grep "$HOME_BIN_DIR") && PATH="$PATH:$HOME_BIN_DIR";
 
 # Source git-prompt.sh from here instead of ~/.git-prompt.sh, which does not show upstream names
 source "$UTIL_DIR/git-prompt.sh";
