@@ -1,0 +1,6 @@
+#!/bin/bash
+
+FILELIST_DIR="$HOME/public_html/filelist.php";
+
+rm "index.php";
+

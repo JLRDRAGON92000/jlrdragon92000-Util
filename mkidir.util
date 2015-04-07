@@ -1,0 +1,10 @@
+#!/bin/bash
+
+FILELIST_DIR="$HOME/public_html/filelist.php";
+
+mkdir "$1";
+cd "$1";
+touch ".webproj.lock";
+ln -s "$FILELIST_DIR" "index.php";
+cd "-";
+
