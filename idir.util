@@ -1,8 +1,0 @@
-#!/bin/bash
-
-# Index a directory (Intended more for this server)
-
-FILELIST_DIR="$HOME/public_html/filelist.php";
-
-ln -s "$FILELIST_DIR" "index.php";
-
