@@ -234,45 +234,43 @@ ps1_rm () {
 # Set a PS1 mode temporarily
 # After the session ends or the PS1 mode is changed, it is as though that PS1 mode never existed
 ps1_cust () {
-	local shn lon p1s p2s p3s p4s prc ini gds gss guf gup gch SEARCH_DIR;
+	local p1s p2s p3s p4s prc ini gds gss guf gup gch SEARCH_DIR;
 	
 	if [ "$1" == "-a" ];
 	then
 		# Either by argument mode...
-		if [ "$#" -lt "14" ];
+		if [ "$#" -lt "12" ];
 		then
 			disperr "fatal" "Not enough arguments";
 			return 2;
 		else
-			shn="$2";
-			lon="$3";
-			p1s="$4";
-			p2s="$5";
-			p3s="$6";
-			p4s="$7";
-			prc="$8";
-			ini="$9";
-			gds="$10";
-			gss="$11";
-			guf="$12";
-			gup="$13";
-			gch="$14";
+			p1s="$2";
+			p2s="$3";
+			p3s="$4";
+			p4s="$5";
+			prc="$6";
+			ini="$7";
+			gds="$8";
+			gss="$9";
+			guf="$10";
+			gup="$11";
+			gch="$12";
 		fi
 	else
 		# ... or by input mode
-		echo -n "Short name: ";
-		read -r shn;
-		echo -n "Long name: ";
-		read -r lon;
 		echo -e "\e[01;33mNOTICE: The system will automatically add a space to the end of PS1, PS2, PS3, and PS4.\e[00m";
 		echo -n "PS1 string: ";
 		read -r p1s;
+		p1s="$p1s ";
 		echo -n "PS2 string: ";
 		read -r p2s;
+		p2s="$p2s ";
 		echo -n "PS3 string: ";
 		read -r p3s;
+		p3s="$p3s ";
 		echo -n "PS4 string: ";
 		read -r p4s;
+		p4s="$p4s ";
 		echo -n "PROMPT_COMMAND string: ";
 		read -r prc;
 		echo -n "Initialization code string: ";
@@ -289,10 +287,10 @@ ps1_cust () {
 		read -r gch;
 	fi
 	SEARCH_DIR="$PS1M_DIR";
-	echo -n "$shn	$lon	$p1s 	$p2s 	$p3s 	$p4s 	$prc	$ini	$gds	$gss	$guf	$gup	$gch" >"$SEARCH_DIR/._X_arbcust.sh";
+	echo -n "ps1_cust	ps1_cust user supplied temp prompt	$p1s	$p2s	$p3s	$p4s	$prc	$ini	$gds	$gss	$guf	$gup	$gch" >"$SEARCH_DIR/._X_arbcust.sh";
 	ps1_custparseset "$SEARCH_DIR/._X_arbcust.sh";
 	rm "$SEARCH_DIR/._X_arbcust.sh";
-	echo -e "\e[01;33mUsing custom PS1 mode \"$lon\".";
+	# echo -e "\e[01;33mUsing custom PS1 mode.";
 }
 # Look up the long name of a PS1 mode
 ps1_longname () {
@@ -404,6 +402,13 @@ ps1_help () {
 
 # Switch PS1 modes
 ps1 () {
+	# If no arguments, switch to defaults captured at beginning
+	if [ "$1" == "" ];
+	then
+		ps1_cust -a "$PS1_INIT" "$PS2_INIT" "$PS3_INIT" "$PS4_INIT" "$PCMD_INIT" : 1 1 1 1 1 ".bashrc/.bash_profile default";
+		echo -e "\e[01;33mPS1 mode set to \e[01;31m.bashrc/.bash_profile default\e[01;33m.\e[00m";
+		return 0;
+	fi
 	# Don't allow switching to modes starting with .
 	if [ "${1:0:1}" == "." ];
 	then
