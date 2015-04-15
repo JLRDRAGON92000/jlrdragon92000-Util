@@ -406,6 +406,7 @@ ps1 () {
 	if [ "$1" == "" ];
 	then
 		ps1_cust -a "$PS1_INIT" "$PS2_INIT" "$PS3_INIT" "$PS4_INIT" "$PCMD_INIT" : 1 1 1 1 1 ".bashrc/.bash_profile default";
+		echo -n "" >"$PS1L_FIL";
 		echo -e "\e[01;33mPS1 mode set to \e[01;31m.bashrc/.bash_profile default\e[01;33m.\e[00m";
 		return 0;
 	fi
