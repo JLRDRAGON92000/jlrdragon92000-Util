@@ -40,7 +40,9 @@ else
 fi
 
 if [ -n "$VIM" ]; then
-	vimsh="[\[\e[01;31m\]VIM\[\e[01;37m\]] ";
+	vimsh="[\[\e[01;31m\]$SHLVL VIM\[\e[01;37m\]] ";
+elif [ $SHLVL -gt 1 ]; then
+	vimsh="[\[\e[01;31m\]$SHLVL SUB\[\e[01;37m\]] ";
 else
 	vimsh="";
 fi
