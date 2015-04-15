@@ -530,8 +530,8 @@ export PS1MODELAST=$(cat "$PS1L_FIL");
 # Start in whatever PS1 mode I left it in, otherwise start it in full mode
 if [ -z "$PS1MODELAST" ];
 then
-	# Start in full mode
-	ps1 "full" -s;
+	# Start in default mode
+	ps1 >/dev/null;
 else
 	# Otherwise, start in whatever PS1 mode was saved last
 	ps1 "$PS1MODELAST" -s;
