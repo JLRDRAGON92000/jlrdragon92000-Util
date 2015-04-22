@@ -1,0 +1,53 @@
+#!/bin/bash
+
+# NOTE: Styles argument is relative to skeleton root, NOT cwd
+
+# Constants for the locations
+TEMPLATE_SKELPATH="$UTIL_DIR/template";
+TEMPLATE_FPATH="$TEMPLATE_SKELPATH/template.html";
+TEMPLATE_CSS_FPATH="$TEMPLATE_SKELPATH/styles/template.css";
+
+# Get ultimate destination paths
+TEMPLATE_DPATH="./$1";
+TEMPLATE_HTML_DPATH="$TEMPLATE_DPATH/$1.html"
+# Make skeleton
+cp -R "$TEMPLATE_SKELPATH" "$TEMPLATE_DPATH";
+
+if [ -n "$2" ];
+then
+	TEMPLATE_CSS_DPATH="$TEMPLATE_DPATH/$2";
+else
+	TEMPLATE_CSS_DPATH="$TEMPLATE_DPATH/styles/$1.css";
+fi
+
+# Give proper names to template.*
+mv "$TEMPLATE_DPATH/template.html" "$TEMPLATE_HTML_DPATH";
+mv "$TEMPLATE_DPATH/styles/template.css" "$TEMPLATE_CSS_DPATH";
+
+# Clean up the paths for insertion into the files
+TEMPLATE_DPATH_RE=${TEMPLATE_DPATH//\./\\.};
+TEMPLATE_DPATH_RE=${TEMPLATE_DPATH_RE//\//\\/};
+
+TEMPLATE_DPATHC=${TEMPLATE_HTML_DPATH/#$TEMPLATE_DPATH_RE\//};
+TEMPLATE_CSS_DPATHC=${TEMPLATE_CSS_DPATH/#$TEMPLATE_DPATH_RE\//};
+
+# Copy the HTML to a temporary file
+cp "$TEMPLATE_FPATH" "./TEMPLATE.html.tmp";
+# Substitute variables
+sed -e "s/\#TEMPLATE_STYLES\#/${TEMPLATE_CSS_DPATHC//\//\\/}/" -e "s/\#C_DATE\#/$(date '+%A, %d %B %Y, at %H:%M')/" "./TEMPLATE.html.tmp" >./TEMPLATE.html.new;
+
+# Copy the stylesheet to a temp file
+cp "$TEMPLATE_CSS_FPATH" "./TEMPLATE.css.tmp";
+# Substitute variables
+sed -e "s/\#TEMPLATE_HTML\#/${TEMPLATE_DPATHC//\//\\/}/" -e "s/\#C_DATE\#/$(date '+%A, %d %B %Y, at %H:%M')/" "./TEMPLATE.css.tmp" >./TEMPLATE.css.new;
+
+# Copy the HTML and stylesheet
+cp -f "./TEMPLATE.html.new" "$TEMPLATE_HTML_DPATH";
+cp -f "./TEMPLATE.css.new" "$TEMPLATE_CSS_DPATH";
+
+# Clean up
+rm "./TEMPLATE.html.tmp";
+rm "./TEMPLATE.html.new";
+rm "./TEMPLATE.css.tmp";
+rm "./TEMPLATE.css.new";
+
