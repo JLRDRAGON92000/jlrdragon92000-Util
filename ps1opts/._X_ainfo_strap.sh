@@ -39,6 +39,8 @@ else
 fi
 export titleb;
 
+export AINFO_BB_GIT=$(__git_ps1 "\[\e[01;37m\][\[\e[01;35m\]%s $(__git_ps1_show_sha)\[\e[01;37m\]]");
+
 source "$PS1M_DIR/._X_showsshuh.sh";
 if [ -e "./.webproj.lock" ]; then
 	source "$PS1M_DIR/._X_winfo.sh";
