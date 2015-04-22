@@ -82,15 +82,8 @@ c9dl () {
 # It turns out cd can already cd into the last used directory
 # So implemented here is a method that will not echo $OLDPWD to stdout when this happens
 cdlast () {
-	if [ "$1" == "-" ];
-	then
-		cd "$OLDPWD";
-	else
-		cd "$1";
-	fi
+	cd "$OLDPWD";
 }
-# Set an alias to use it instead of cd
-alias cd="cdlast";
 
 # cat and append a newline
 catn () {
