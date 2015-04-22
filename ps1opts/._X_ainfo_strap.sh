@@ -1,3 +1,5 @@
+# Don't feel like going back and changing all of those instances of $dirbase, so it is set to \w (substituted with ${PWD/#$HOME/~})
+dirbase='\w';
 if [ -n "$USE_TITLEBAR" ]; then
 	if [ $(id -u) -eq 0 ]; then
 		if [ -n "$SSH_CLIENT" ] && [ "$PROMPT_SHOW_SSH_UH" == "1" ]; then
