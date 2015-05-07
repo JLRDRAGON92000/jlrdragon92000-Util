@@ -11,6 +11,9 @@ case $TERM in
 	cygwin)
 		export USE_LINEDRAW_ESCS="";
 		export USE_TITLEBAR="1";;
+	screen)
+		export USE_LINEDRAW_ESCS="";
+		export USE_TITLEBAR="";;
 	*)
 		export USE_LINEDRAW_ESCS="";
 		export USE_TITLEBAR="";
