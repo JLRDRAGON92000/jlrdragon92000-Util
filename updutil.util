@@ -28,7 +28,7 @@ then
 	# Update the HEAD of the upstream
 	git fetch -u "origin" "master";
 	# Get the list of different files from the upstream
-	UTIL_DIFF_LIST=$(git diff --name-only @{upstream} -- "$FFIL.util");
+	UTIL_DIFF_LIST=$(git diff --name-only @{upstream} -- "$FFIL");
 	
 	# Set the display for the diff list
 	if [ "$CFIL" == "--fetch-all" ];
