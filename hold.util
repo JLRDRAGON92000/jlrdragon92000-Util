@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# hold: execute a command every 30 minutes to keep session alive
+
+# every 30 min (1800 s) execute an echo command, instructing user how to exit hold
+echo -e '\e[01;33mReentering session. Idle for: \e[00m';
+bash -c '/usr/bin/time -f %E watch -txcn 1800 /bin/echo -e "\033[01;33mPress Ctrl-C to return to your active session.\033[00m"';
+

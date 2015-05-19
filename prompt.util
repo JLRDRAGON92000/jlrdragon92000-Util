@@ -534,6 +534,10 @@ else
 	ps1 "$PS1MODELAST" -s;
 fi
 
+# Source other things here
+# lsterm
+source "$UTIL_DIR/lsterm.util";
+
 # Show the startup message
 #echo -e "\n\
 #    \e[01;33mLogged on to \e[01;31m$HOSTNAME\e[01;33m as \e[01;31m$USER\e[01;33m from \e[01;31m$(if [ -z $SSH_IP ]; then echo 'console'; else echo $SSH_IP; fi;) (${TTY:5})\n\

@@ -1,0 +1,39 @@
+#!/bin/bash
+
+# lsterm : Attach a second terminal, which displays the output of ls -al in your current directory
+# Most useful in tmux with 2 PTYs next to each other.
+
+# if running in a new subshell, allow commands
+if [ -z $PS1 ];
+then
+	# attach terminal
+	# (I haven't figured out how to make this work yet, so it is commented out)
+	"
+	while getopts 'a:d' opt;
+	do
+		case $opt in
+			a)
+				if [ -z $OPTARG ];
+				then
+					echo 'No pseudo-terminal specified.'; >&2
+					exit 1;
+				else
+					lsutil_attpc $OPTARG;
+				fi;;
+			d)
+				lsutil_detpc;;
+		esac
+	done
+	"
+# if sourced, add the shell functions instead
+else
+	# add ls to attached terminal to PROMPT_COMMAND
+	lsterm_attpc () {
+		export PROMPT_COMMAND="if [ -c $1 ] && [ -w $1 ]; then clear >$1; stat . >$1; echo '' >$1; ls -al >$1; fi; : END OF ATTACHMENT; $PROMPT_COMMAND";
+	}
+	# remove command from PROMPT_COMMAND
+	lsterm_detpc () {
+		export PROMPT_COMMAND="${PROMPT_COMMAND##*\: END OF ATTACHMENT;}";
+	}
+fi
+
