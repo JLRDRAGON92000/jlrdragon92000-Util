@@ -37,7 +37,7 @@ export UTIL_LOGPATH="$UTIL_DIR/util-logins.log";
 [ ! -d "$HOME_BIN_DIR" ] && mkdir "$HOME_BIN_DIR";
 
 # Add it to the PATH if it's not already there
-(echo "$PATH" | grep -q "$HOME_BIN_DIR") && PATH="$PATH:$HOME_BIN_DIR";
+(echo "$PATH" | grep -q "$HOME_BIN_DIR") || PATH="$PATH:$HOME_BIN_DIR";
 
 # Source git-prompt.sh from here instead of ~/.git-prompt.sh, which does not show upstream names
 source "$UTIL_DIR/git-prompt.util";
