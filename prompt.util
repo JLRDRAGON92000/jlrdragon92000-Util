@@ -11,8 +11,11 @@ case $TERM in
 	cygwin)
 		export USE_LINEDRAW_ESCS="";
 		export USE_TITLEBAR="1";;
-	screen)
+	screen*)
 		export USE_LINEDRAW_ESCS="";
+		if [ -n $TMUX ]; then
+			export USE_LINEDRAW_ESCS="1";
+		fi
 		export USE_TITLEBAR="";;
 	*)
 		export USE_LINEDRAW_ESCS="";
