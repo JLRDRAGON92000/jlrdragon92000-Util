@@ -9,9 +9,9 @@ if [ -n $TMUX ]; then
 	# current window title
 	curtitle="$(tmux display -p '#W')";
 	# if using automatic rename, remember that, then turn it off
-	if  (tmux show-window-options -g | grep 'automatic-rename on') || (tmux show-window-options | grep 'automatic-rename on'); then
+	if  (tmux show-window-options -g | grep -q 'automatic-rename on') || (tmux show-window-options | grep -q 'automatic-rename on'); then
 		autorename=1;
-		tmux set-window-option automatic-rename off;
+		tmux set-window-option automatic-rename off >/dev/null 2>&1;
 	else
 		unset autorename;
 	fi
@@ -27,7 +27,7 @@ if [ -n $TMUX ]; then
 	tmux rename-window "$curtitle";
 	# if we were using automatic rename, turn it back on
 	if [ -n $autorename ]; then
-		tmux set-window-option automatic-rename on;
+		tmux set-window-option automatic-rename on >/dev/null 2>&1;
 	fi
 fi
 
