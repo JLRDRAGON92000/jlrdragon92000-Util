@@ -1,5 +1,10 @@
 #!/usr/bin/lua5.2
 
+--[[
+chargen - Generate random characters
+Requires lua (this version uses 5.2 as the interpreter, but the #! can be adjusted to whatever version you have)
+]]
+
 local tArgs={...};
 if (#tArgs<2) then
 	error("Not enough arguments\nUsage: chargen <number of chars> <starting seed> [output file]",0);

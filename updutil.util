@@ -28,7 +28,7 @@ then
 	# Update the HEAD of the upstream
 	git fetch -u "origin" "master";
 	# Get the list of different files from the upstream
-	UTIL_DIFF_LIST=$(git diff --name-only @{upstream} -- "$FFIL.sh");
+	UTIL_DIFF_LIST=$(git diff --name-only @{upstream} -- "$FFIL");
 	
 	# Set the display for the diff list
 	if [ "$CFIL" == "--fetch-all" ];
@@ -84,24 +84,24 @@ then
 fi
 
 # Copy the specified objects
-for FNAME in $UTIL_DIR/$CFIL.sh;
+for FNAME in $UTIL_DIR/$CFIL.util;
 do
 	if [ -x "$FNAME" ];
 	then
-		cp "$FNAME" "$HOME_BIN_DIR/$(basename ${FNAME%\.sh})";
+		cp "$FNAME" "$HOME_BIN_DIR/$(basename ${FNAME%\.util})";
 		cpresult="$?";
 		if [ "$cpresult" -ne 0 ];
 		then
-			echo -e "\e[01;31m$UTIL_DIR/$CFIL.sh not found\e[00m";
+			echo -e "\e[01;31m$UTIL_DIR/$CFIL.util not found\e[00m";
 		else
-			echo -e "\e[01;32m$FNAME -> $HOME_BIN_DIR/$(basename ${FNAME%\.sh})\e[00m";
+			echo -e "\e[01;32m$FNAME -> $HOME_BIN_DIR/$(basename ${FNAME%\.util})\e[00m";
 		fi
 	else
 		if [ "$CFIL" == "*" ];
 		then
 			echo -e "\e[01;31m$FNAME not executable\e[00m";
 		else
-			echo -e "\e[01;31m$UTIL_DIR/$CFIL.sh not found or not executable\e[00m";
+			echo -e "\e[01;31m$UTIL_DIR/$CFIL.util not found or not executable\e[00m";
 		fi
 
 	fi

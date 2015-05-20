@@ -7,10 +7,10 @@ If a shell script is specific to the particular environment it resides on, I wil
 
 ### Installation
 1. Download its contents to `$HOME/Util`.
-2. In `$HOME/.bashrc`, source `$HOME/Util/.emerdefaults.sh` and `$HOME/Util/prompt.sh` in that order.
+2. In `$HOME/.bashrc`, source `$HOME/Util/.emerdefaults.util` and `$HOME/Util/prompt.util` in that order.
 3. If it does not exist already, create `$HOME/bin`.
-4. Run `$HOME/Util/updutil.sh` to copy the Util shell scripts to `$HOME/bin`.
+4. Run `$HOME/Util/updutil.util` to copy the Util shell scripts to `$HOME/bin`.
 
 ### Adding and editing scripts
 For writing new scripts and editing existing ones, I recommend using the `eutil` script included with the download, as it will automatically manage placing the new script into the bin directory.
-`eutil`'s default editor can be set by changing the value of the `EUTIL_EDITOR` variable inside of eutil.sh.
+`eutil`'s default editor can be set by changing the value of the `EUTIL_EDITOR` variable inside of eutil.util.

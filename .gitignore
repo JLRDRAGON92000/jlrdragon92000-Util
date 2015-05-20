@@ -1,7 +1,8 @@
-resstudent.sh
-mkidir.sh
-uidir.sh
-idir.sh
-.ps1custopts.lock/._X_sshuh.lock
+resstudent.util
+mkidir.util
+uidir.util
+idir.util
+ps1opts/._X_sshuh.lock
 util-logins.log
+.ps1modelast
 

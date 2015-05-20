@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# .emerdefaults.util : Contains emergency defaults in case prompt.util is not loaded.
+# Sourced in .bashrc, just before prompt.util.
+
+# Get current PS1/2/3/4 settings, most likely as set by .bashrc/.bash_profile
+export PS1_INIT=$PS1;
+export PS2_INIT=$PS2;
+export PS3_INIT=$PS3;
+export PS4_INIT=$PS4;
+export PCMD_INIT=$PROMPT_COMMAND;
+
+PROMPT_COMMAND='echo -e "\e[01;33mWARNING: PROMPT.SH FAILED TO LOAD!\e[00m"';
+PS1='\[\e]0;[ERROR!]\007\]\[\e[01;33m\][ERROR!] \$ \[\e[00m\]';
+PS2='\[\e[01;33m\][ERROR!] > \[\e[00m\]';
+PS3="[ERROR!] #? ";
+PS4='\[\e[01;33m\][ERROR!] + \[\e[00m\]';

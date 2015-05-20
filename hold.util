@@ -1,0 +1,45 @@
+#!/bin/bash
+
+# hold: execute a command every 30 minutes to keep session alive
+
+# before entering hold, write the message that will display when the user re-enters their session
+echo -e '\e[01;33mReentering session. Idle for: \e[00m';
+# if we are in tmux, set window title to indicate this session is held
+if [ -n $TMUX ]; then
+	# current window title
+	curtitle="$(tmux display -p '#W')";
+	# if using automatic rename, remember that, then turn it off
+	if  (tmux show-window-options -g | grep -q 'automatic-rename on') || (tmux show-window-options | grep -q 'automatic-rename on'); then
+		# check and make sure the local window isn't overriding the global setting
+		if  (tmux show-window-options | grep -q 'automatic-rename off'); then
+			# local window's setting is off, this takes precedence over global setting
+			# echo 'local automatic-rename overrides global automatic-rename; not using autorename';
+			unset autorename;
+		else
+			# ok to proceed with using autorename
+			# echo 'using autorename';
+			autorename=1;
+			tmux set-window-option automatic-rename off >/dev/null 2>&1;
+		fi
+	else
+		# echo 'not using autorename';
+		unset autorename;
+	fi
+	tmux rename-window "[HELD] $curtitle";
+fi
+
+# every 30 min (1800 s) execute an echo command, instructing user how to exit hold
+bash -c '/usr/bin/time -f %E watch -txcn 1800 /bin/echo -e "\033[01;33mHOLD ACTIVE\nPress Ctrl-C to return to your active session.\033[00m"';
+
+# if in tmux, reset the window title when returning to session
+if [ -n $TMUX ]; then
+	# restore previous window title
+	tmux rename-window "$curtitle";
+	# echo "autorename is: ${autorename:-'NOT SET'}";
+	# if we were using automatic rename, turn it back on
+	if [ -n "$autorename" ]; then
+		# echo 'restoring autorename';
+		tmux set-window-option automatic-rename on >/dev/null 2>&1;
+	fi
+fi
+
