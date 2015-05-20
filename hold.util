@@ -2,7 +2,32 @@
 
 # hold: execute a command every 30 minutes to keep session alive
 
-# every 30 min (1800 s) execute an echo command, instructing user how to exit hold
+# before entering hold, write the message that will display when the user re-enters their session
 echo -e '\e[01;33mReentering session. Idle for: \e[00m';
-bash -c '/usr/bin/time -f %E watch -txcn 1800 /bin/echo -e "\033[01;33mPress Ctrl-C to return to your active session.\033[00m"';
+# if we are in tmux, set window title to indicate this session is held
+if [ -n $TMUX ]; then
+	# current window title
+	curtitle="$(tmux display -p '#W')";
+	# if using automatic rename, remember that, then turn it off
+	if  (tmux show-window-options -g | grep 'automatic-rename on') || (tmux show-window-options | grep 'automatic-rename on'); then
+		autorename=1;
+		tmux set-window-option automatic-rename off;
+	else
+		unset autorename;
+	fi
+	tmux rename-window "[HELD] $curtitle";
+fi
+
+# every 30 min (1800 s) execute an echo command, instructing user how to exit hold
+bash -c '/usr/bin/time -f %E watch -txcn 1800 /bin/echo -e "\033[01;33mHOLD ACTIVE\nPress Ctrl-C to return to your active session.\033[00m"';
+
+# if in tmux, reset the window title when returning to session
+if [ -n $TMUX ]; then
+	# restore previous window title
+	tmux rename-window "$curtitle";
+	# if we were using automatic rename, turn it back on
+	if [ -n $autorename ]; then
+		tmux set-window-option automatic-rename on;
+	fi
+fi
 
