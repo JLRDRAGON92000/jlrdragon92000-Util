@@ -72,8 +72,8 @@ gitcpush () {
 	git push -u "$2" "$3"
 }
 
-# mkcd - Make a directory, then cd into it
-mkcd () {
+# mdcd - Make a directory, then cd into it
+mdcd () {
 	mkdir "$1";
 	cd "$1";
 }
@@ -538,8 +538,6 @@ else
 fi
 
 # Source other things here
-# lsterm
-source "$UTIL_DIR/lsterm.util";
 
 # Show the startup message
 #echo -e "\n\
