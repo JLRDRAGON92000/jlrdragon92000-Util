@@ -8,7 +8,7 @@ DEF_INST_DIR="$HOME/bin/crun";
 
 if [ "$#" -lt 1 ];
 then
-	echo -e "\e[01;33musage: crun -a|-c|-r sourcename [args]\e[00m";
+	echo -e "\e[01;33musage: crun -a|-c|-r sourcename [compiler args] [args]\e[00m";
 	exit 2;
 fi
 
@@ -17,7 +17,7 @@ then
 	case "$1" in
 		-c)
 			echo -e "\e[01;34mCompiling ${2}...\e[00m";
-			gcc -Wall -g "${2}.c" -o "${2}.x";
+			gcc -Wall -g $3 "${2}.c" -o "${2}.x";
 			gccexttmp="$?";
 			if [ "$gccexttmp" -eq 0 ];
 			then
@@ -34,7 +34,7 @@ then
 			let argi=1;
 			for arg in $*;
 			do
-				if [ $argi -gt 2 ];
+				if [ $argi -gt 3 ];
 				then
 					args="$args $arg";
 				fi
@@ -52,7 +52,7 @@ then
 			exit $pxt;;
 		-a)
 			echo -e "\e[01;34mCompiling ${2}...\e[00m";
-			gcc -Wall -g "${2}.c" -o "${2}.x";
+			gcc -Wall -g $3 "${2}.c" -o "${2}.x";
 			gccexttmp="$?";
 			if [ "$gccexttmp" -eq 0 ];
 			then
@@ -63,7 +63,7 @@ then
 				let argi=1;
 				for arg in $*;
 				do
-					if [ $argi -gt 2 ];
+					if [ $argi -gt 3 ];
 					then
 						args="$args $arg";
 					fi
