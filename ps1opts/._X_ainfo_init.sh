@@ -48,5 +48,8 @@ fi
 # TTY indicator
 export AINFO_BB_TTY='${TTY:5}';
 
+# Set up the show command in titlebar trap
+trap 'echo -ne "\e]0;${BASH_COMMAND} ...\a";' DEBUG;
+
 # Import additional files here
 
