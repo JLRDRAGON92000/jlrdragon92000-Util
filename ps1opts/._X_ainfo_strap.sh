@@ -1,6 +1,6 @@
 # ainfo strap (executed each time the prompt is displayed)
 
-if [ $(id -u) -eq 0 ]; then
+if [ $UID -eq 0 ]; then
 	# Special conditions for root follow
 	if [[ -n "$SSH_CLIENT" && "$PROMPT_SHOW_SSH_UH" == "1" ]] || [ "$PROMPT_SHOW_SSH_UH" == "2" ]; then
 		# Display username/hostname
@@ -54,4 +54,8 @@ else
 	source "$PS1M_DIR/._X_ginfo.sh";
 fi
 eval "$promptcmd";
+
+# Set up the show command in titlebar trap
+# (After it's done executing, the trap removes itself, until this sets it again)
+trap 'echo -ne "\e]0;${BASH_COMMAND} ...\a"; trap DEBUG;' DEBUG;
 
