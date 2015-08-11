@@ -55,7 +55,9 @@ else
 fi
 eval "$promptcmd";
 
-# Set up the show command in titlebar trap
-# (After it's done executing, the trap removes itself, until this sets it again)
-trap 'echo -ne "\e]0;${BASH_COMMAND} ...\a"; trap DEBUG;' DEBUG;
+if [ -n "$USE_TITLEBAR" ]; then
+	# Set up the show command in titlebar trap
+	# (After it's done executing, the trap removes itself, until this sets it again)
+	trap 'echo -ne "\e]0;${BASH_COMMAND} ...\a"; trap DEBUG;' DEBUG;
+fi
 
