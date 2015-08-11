@@ -11,6 +11,7 @@ if [ $UID -eq 0 ]; then
 		titlebar="[#] \w";
 		pprefix="\[\e[01;37m\][\[\e[01;31m\]-ROOT-\[\e[01;37m\]]";
 	fi
+	export TBDECAL="[#]";
 elif [[ -n "$SSH_CLIENT" && "$PROMPT_SHOW_SSH_UH" == "1" ]] || [ "$PROMPT_SHOW_SSH_UH" == "2" ]; then
 	# Display username/hostname
 	titlebar="\${USER}@\${HOSTNAME} : \w";
@@ -57,5 +58,5 @@ eval "$promptcmd";
 
 # Set up the show command in titlebar trap
 # (After it's done executing, the trap removes itself, until this sets it again)
-trap 'echo -ne "\e]0;${BASH_COMMAND} ...\a"; trap DEBUG;' DEBUG;
+trap 'echo -ne "\e]0;${TBDECAL}${BASH_COMMAND} ...\a"; trap DEBUG;' DEBUG;
 
