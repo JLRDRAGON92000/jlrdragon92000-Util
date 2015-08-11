@@ -8,7 +8,7 @@ DEF_INST_DIR="$HOME/bin/crun";
 
 if [ "$#" -lt 1 ];
 then
-	echo -e "\e[01;33musage: crun -a|-c|-r sourcename [args]\e[00m";
+	echo -e "\e[01;33musage:\n    crun -a sourcename [compiler args] [args]\n    crun -c sourcename [compiler args]\n    crun -r sourcename [args]\e[00m";
 	exit 2;
 fi
 
@@ -17,7 +17,7 @@ then
 	case "$1" in
 		-c)
 			echo -e "\e[01;34mCompiling ${2}...\e[00m";
-			gcc -Wall -g "${2}.c" -o "${2}.x";
+			gcc -Wall -g $3 "${2}.c" -o "${2}.x";
 			gccexttmp="$?";
 			if [ "$gccexttmp" -eq 0 ];
 			then
@@ -52,7 +52,7 @@ then
 			exit $pxt;;
 		-a)
 			echo -e "\e[01;34mCompiling ${2}...\e[00m";
-			gcc -Wall -g "${2}.c" -o "${2}.x";
+			gcc -Wall -g $3 "${2}.c" -o "${2}.x";
 			gccexttmp="$?";
 			if [ "$gccexttmp" -eq 0 ];
 			then
@@ -63,7 +63,7 @@ then
 				let argi=1;
 				for arg in $*;
 				do
-					if [ $argi -gt 2 ];
+					if [ $argi -gt 3 ];
 					then
 						args="$args $arg";
 					fi
@@ -116,7 +116,12 @@ then
 			fi;;
 		--help)
 			echo -e "\e[01;37mcrun\e[00m - Compiles and runs C source files";
-			echo -e "usage: \e[01;37mcrun\e[00m -a|-c|-r|-i|-if sourcename [args]";
+			echo -e "usage:";
+			echo -e "	\e[01;37mcrun\e[00m -a sourcename [compiler args] [args]";
+			echo -e "	\e[01;37mcrun\e[00m -c sourcename [compiler args]";
+			echo -e "	\e[01;37mcrun\e[00m -r sourcename [args]";
+			echo -e "	\e[01;37mcrun\e[00m -i";
+			echo -e "	\e[01;37mcrun\e[00m -if location";
 			echo -e "options:";
 			echo -e "	\e[01;37m-a\e[00m	Compile and run the specified source";
 			echo -e "	\e[01;37m-c\e[00m	Compile the specified source";

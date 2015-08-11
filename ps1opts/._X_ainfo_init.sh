@@ -1,3 +1,14 @@
+# A function to safely check whether all values of $PIPESTATUS are 0
+statcheck () {
+	for STAT in $pstattmp;
+	do
+		if [ $STAT -ne 0 ]; then
+			return 1;
+		fi
+	done
+	return 0;
+}
+
 # Export building blocks
 # Empty
 export AINFO_BB_EMPTY='\[\e[01;37m\][\[\e[01;37m\]]';
