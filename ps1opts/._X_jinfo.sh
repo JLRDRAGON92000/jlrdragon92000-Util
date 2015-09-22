@@ -23,5 +23,5 @@ AINFO_BB_FDCOUNT_J () {
 }
 
 export promptcmd='
-	PS1="$titleb\[\e[01;37m\][${AINFO_BB_CWD}][$(AINFO_BB_FDCOUNT_J)][${AINFO_BB_DATE}]${AINFO_BB_GIT}\n\[\e[01;37m\]${AINFO_BB_SUBSH:+$AINFO_BB_SUBSH }${AINFO_BB_SSHIP} -> ${AINFO_BB_TTY} [${AINFO_BB_STAT}] \\\$ \[\e[00m\]";
+	PS1="$titleb\[\e[01;37m\][${AINFO_BB_CWD}][$(AINFO_BB_FDCOUNT_J)][${AINFO_BB_DATE}]${AINFO_BB_GIT}\n\[\e[01;37m\]${AINFO_BB_SUBSH:+$AINFO_BB_SUBSH }${AINFO_BB_SSHIP} -> ${AINFO_BB_TTY} [${AINFO_BB_STAT}] #\$HISTCMD \\\$ \[\e[00m\]";
 ';
