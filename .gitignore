@@ -6,4 +6,5 @@ ps1opts/._X_sshuh.lock
 util-logins.log
 .ps1modelast
 ps1opts/._X_NS_*.sh
+.update-exempt
 

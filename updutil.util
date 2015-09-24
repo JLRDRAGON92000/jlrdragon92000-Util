@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Update Util/
+# Update Util ($HOME/bin directories or Util itself from the repository)
 
 # Remote URL of the git repository
 FETCH_REPO_URL="https://github.com/JLRDRAGON92000/jlrdragon92000-Util.git";
@@ -63,10 +63,10 @@ then
 	# Copy the changed files to Util/ (or all of them if --fetch-all)
 	for CFNAME in $UTIL_DIFF_LIST;
 	do
-		cp -f "$HOME/Util.tmp/$(basename $CFNAME)" "$HOME/Util/$(basename $CFNAME)"; 
+		cp -f "$UTIL_TMP_DIR/$(basename $CFNAME)" "$UTIL_DIR/$(basename $CFNAME)"; 
 	done
 	# Clean up
-	rm -rf "$HOME/Util.tmp";
+	rm -rf "$UTIL_TMP_DIR";
 	cd "$pwdbak";
 	# Did we copy any files? If not, exit now
 	if [ "$CFIL" != "--fetch-all" ] && [ -z "$UTIL_DIFF_LIST" ];
@@ -92,7 +92,7 @@ do
 		cpresult="$?";
 		if [ "$cpresult" -ne 0 ];
 		then
-			echo -e "\e[01;31m$UTIL_DIR/$CFIL.util not found\e[00m";
+			echo -e "\e[01;31m$UTIL_DIR/$CFIL.util not found, or could not be accessed\e[00m";
 		else
 			echo -e "\e[01;32m$FNAME -> $HOME_BIN_DIR/$(basename ${FNAME%\.util})\e[00m";
 		fi
