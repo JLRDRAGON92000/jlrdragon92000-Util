@@ -105,7 +105,6 @@ do
 		else
 			echo -e "\e[01;31m$UTIL_DIR/$CFIL.util not found or not executable\e[00m";
 		fi
-
 	fi
 done
 
