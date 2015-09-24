@@ -51,18 +51,21 @@ then
 	fi
 	
 	# Download the most current version of Util/ from the repo
-	cd "$HOME";
 	git clone "$FETCH_REPO_URL" "$UTIL_TMP_DIR";
+	cd "$UTIL_TMP_DIR";
 	
 	# Are we in --fetch-all mode? If so, every file is changed
 	if [ "$CFIL" == "--fetch-all" ];
 	then
-		UTIL_DIFF_LIST="$HOME/Util.tmp/*";
+		UTIL_DIFF_LIST="*";
 	fi
 	# Copy the changed files to Util/ (or all of them if --fetch-all)
 	for CFNAME in $UTIL_DIFF_LIST;
 	do
-		cp -f "$UTIL_TMP_DIR/$(basename $CFNAME)" "$UTIL_DIR/$(basename $CFNAME)"; 
+		if grep -q "$CFNAME" "$UTIL_DIR/.update-exempt"; then :;
+		else
+			cp -f "$UTIL_TMP_DIR/$CFNAME" "$UTIL_DIR/$CFNAME"; 
+		fi
 	done
 	# Clean up
 	rm -rf "$UTIL_TMP_DIR";
