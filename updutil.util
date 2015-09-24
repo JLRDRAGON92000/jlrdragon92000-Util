@@ -92,7 +92,7 @@ do
 		cpresult="$?";
 		if [ "$cpresult" -ne 0 ];
 		then
-			echo -e "\e[01;31m$UTIL_DIR/$CFIL.util not found\e[00m";
+			echo -e "\e[01;31m$UTIL_DIR/$CFIL.util not found, or could not be accessed\e[00m";
 		else
 			echo -e "\e[01;32m$FNAME -> $HOME_BIN_DIR/$(basename ${FNAME%\.util})\e[00m";
 		fi
