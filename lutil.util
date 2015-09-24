@@ -8,7 +8,7 @@ let lngst=0;
 
 SEARCH_DIR="$UTIL_DIR";
 
-for FN in $SEARCH_DIR/*.sh;
+for FN in $SEARCH_DIR/*.util;
 do
 	shbase=$(basename $FN);
 	if [ "${#shbase}" -gt "$lngst" ]; then
