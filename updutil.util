@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Update Util/
+# Update Util ($HOME/bin directories or Util itself from the repository)
 
 # Remote URL of the git repository
 FETCH_REPO_URL="https://github.com/JLRDRAGON92000/jlrdragon92000-Util.git";
