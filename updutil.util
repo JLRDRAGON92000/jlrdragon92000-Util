@@ -69,6 +69,8 @@ then
 	done
 	# Update the head for master
 	cp -f "$UTIL_TMP_DIR/.git/refs/heads/master" "$UTIL_DIR/.git/refs/heads/master";
+	# Reset HEAD to remove change notices; the work tree should be the same as the remote now
+	git reset HEAD;
 	# Clean up
 	rm -rf "$UTIL_TMP_DIR";
 	cd "$pwdbak";
