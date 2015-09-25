@@ -10,6 +10,7 @@ UTIL_TMP_DIR="$HOME/Util.tmp";
 # Get first argument
 # If it is nil, use * (Everything)
 CFIL="$1";
+# Files that will be fetched from the remote
 FFIL="";
 
 # Fetch mode (Fetch from the git repository)
