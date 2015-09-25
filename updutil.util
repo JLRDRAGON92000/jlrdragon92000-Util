@@ -67,6 +67,8 @@ then
 			cp -f "$UTIL_TMP_DIR/$CFNAME" "$UTIL_DIR/$CFNAME"; 
 		fi
 	done
+	# Update the head for master
+	cp -f "$UTIL_TMP_DIR/.git/refs/heads/master" "$UTIL_DIR/.git/refs/heads/master";
 	# Clean up
 	rm -rf "$UTIL_TMP_DIR";
 	cd "$pwdbak";
