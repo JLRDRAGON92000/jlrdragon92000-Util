@@ -5,7 +5,7 @@
 # before entering hold, write the message that will display when the user re-enters their session
 echo -e '\e[01;33mReentering session. Idle for: \e[00m';
 # if we are in tmux, set window title to indicate this session is held
-if [ -n $TMUX ]; then
+if [ -n "$TMUX" ]; then
 	# current window title
 	curtitle="$(tmux display -p '#W')";
 	# if using automatic rename, remember that, then turn it off
@@ -32,7 +32,7 @@ fi
 bash -c '/usr/bin/time -f %E watch -txcn 1800 /bin/echo -e "\033[01;33mHOLD ACTIVE\nPress Ctrl-C to return to your active session.\033[00m"';
 
 # if in tmux, reset the window title when returning to session
-if [ -n $TMUX ]; then
+if [ -n "$TMUX" ]; then
 	# restore previous window title
 	tmux rename-window "$curtitle";
 	# echo "autorename is: ${autorename:-'NOT SET'}";
