@@ -11,14 +11,14 @@ statcheck () {
 
 # Export building blocks
 # Empty
-export AINFO_BB_EMPTY='\[\e[01;37m\][\[\e[01;37m\]]';
+export AINFO_BB_EMPTY='\[\033[01;37m\][\[\033[01;37m\]]';
 
 # Basic (user@host, directory, time and date, etc...)
-export AINFO_BB_USER='\[\e[01;32m\]${USER}@${HOSTNAME}\[\e[01;37m\]';
-export AINFO_BB_ROOT='\[\e[01;31m\]-ROOT-\[\e[01;37m\]';
-export AINFO_BB_CWD='\[\e[01;34m\]${debian_chroot:+($debian_chroot) }\w\[\e[01;37m\]';
-export AINFO_BB_CWDFULL='\[\e[01;34m\]${debian_chroot:+($debian_chroot) }${PWD}\[\e[01;37m\]';
-export AINFO_BB_DATE='\[\e[01;36m\]$(date "+%a %Y-%m-%d %H:%M")\[\e[01;37m\]';
+export AINFO_BB_USER='\[\033[01;32m\]${USER}@${HOSTNAME}\[\033[01;37m\]';
+export AINFO_BB_ROOT='\[\033[01;31m\]-ROOT-\[\033[01;37m\]';
+export AINFO_BB_CWD='\[\033[01;34m\]${debian_chroot:+($debian_chroot) }\w\[\033[01;37m\]';
+export AINFO_BB_CWDFULL='\[\033[01;34m\]${debian_chroot:+($debian_chroot) }${PWD}\[\033[01;37m\]';
+export AINFO_BB_DATE='\[\033[01;36m\]$(date "+%a %Y-%m-%d %H:%M")\[\033[01;37m\]';
 
 # File/directory counter (Basic, only files and directories)
 AINFO_BB_FDCOUNT_BASIC () {
@@ -26,14 +26,14 @@ AINFO_BB_FDCOUNT_BASIC () {
 	let cdirs=$(ls -Al 2>/dev/null | grep -c "^d" 2>/dev/null);
 	echo "${cfiles}f ${cdirs}d";
 }
-export AINFO_BB_FDCOUNT='\[\e[01;33m\]$(AINFO_BB_FDCOUNT_BASIC)\[\e[01;37m\]';
+export AINFO_BB_FDCOUNT='\[\033[01;33m\]$(AINFO_BB_FDCOUNT_BASIC)\[\033[01;37m\]';
 
 # Git PS1 module
-export AINFO_BB_GIT='$(__git_ps1 "\[\e[01;37m\][\[\e[01;35m\]%s \$(__git_ps1_show_sha)\[\e[01;37m\]]")'
+export AINFO_BB_GIT='$(__git_ps1 "\[\033[01;37m\][\[\033[01;35m\]%s \$(__git_ps1_show_sha)\[\033[01;37m\]]")'
 
 # Subshell indicator
 if [ $SHLVL -gt 1 ]; then
-	export AINFO_BB_SUBSH='\[\e[01;37m\][\[\e[01;31m\]SUB $SHLVL\[\e[01;37m\]]';
+	export AINFO_BB_SUBSH='\[\033[01;37m\][\[\033[01;31m\]SUB $SHLVL\[\033[01;37m\]]';
 else
 	export AINFO_BB_SUBSH='';
 fi

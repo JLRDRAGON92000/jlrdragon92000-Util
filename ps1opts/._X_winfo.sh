@@ -13,10 +13,10 @@ AINFO_BB_FDCOUNT_W () {
 	cfils=$(ls -al | grep -c "^-");
 	let cothr=$cfils-$cwebf-$cscr;
 	cdirs=$(ls -Al | grep -c "^d");
-	echo "\[\e[01;33m\]${cwebf}w ${cscr}s ${cothr}o ${cdirs}d\[\e[01;37m\]";
+	echo "\[\033[01;33m\]${cwebf}w ${cscr}s ${cothr}o ${cdirs}d\[\033[01;37m\]";
 }
 
 export promptcmd='
-	PS1="$titleb\[\e[01;37m\][${AINFO_BB_CWD}][$(AINFO_BB_FDCOUNT_W)][${AINFO_BB_DATE}]${AINFO_BB_GIT}\n\[\e[01;37m\]${AINFO_BB_SUBSH:+$AINFO_BB_SUBSH }${AINFO_BB_SSHIP} -> ${AINFO_BB_TTY} [${AINFO_BB_STAT}] #\$HISTCMD \\\$ \[\e[00m\]";
+	PS1="$titleb\[\033[01;37m\][${AINFO_BB_CWD}][$(AINFO_BB_FDCOUNT_W)][${AINFO_BB_DATE}]${AINFO_BB_GIT}\n\[\033[01;37m\]${AINFO_BB_SUBSH:+$AINFO_BB_SUBSH }${AINFO_BB_SSHIP} -> ${AINFO_BB_TTY} [${AINFO_BB_STAT}] #\$HISTCMD \\\$ \[\033[00m\]";
 ';
 

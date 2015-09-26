@@ -14,7 +14,7 @@ sshuh () {
 		never)
 			unset PROMPT_SHOW_SSH_UH;;
 		*)
-			echo -e "\e[01;31mAvailable options are: always, ssh, never\e[00m";;
+			echo -e "\033[01;31mAvailable options are: always, ssh, never\033[00m";;
 	esac
 	echo -n "$PROMPT_SHOW_SSH_UH" >$SSHUH_LOCK_FPATH;
 }

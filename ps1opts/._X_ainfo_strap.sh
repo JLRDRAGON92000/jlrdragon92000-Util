@@ -5,17 +5,17 @@ if [ $UID -eq 0 ]; then
 	if [[ -n "$SSH_CLIENT" && "$PROMPT_SHOW_SSH_UH" == "1" ]] || [ "$PROMPT_SHOW_SSH_UH" == "2" ]; then
 		# Display username/hostname
 		titlebar="[#] \${USER}@\${HOSTNAME} : \w";
-		pprefix="\[\e[01;37m\][\[\e[01;31m\]\${USER}@\${HOSTNAME}\[\e[01;37m\]]";
+		pprefix="\[\033[01;37m\][\[\033[01;31m\]\${USER}@\${HOSTNAME}\[\033[01;37m\]]";
 	else
 		# Don't display username/hostname (just display [-ROOT-])
 		titlebar="[#] \w";
-		pprefix="\[\e[01;37m\][\[\e[01;31m\]-ROOT-\[\e[01;37m\]]";
+		pprefix="\[\033[01;37m\][\[\033[01;31m\]-ROOT-\[\033[01;37m\]]";
 	fi
 	export TBDECAL="[#] ";
 elif [[ -n "$SSH_CLIENT" && "$PROMPT_SHOW_SSH_UH" == "1" ]] || [ "$PROMPT_SHOW_SSH_UH" == "2" ]; then
 	# Display username/hostname
 	titlebar="\${USER}@\${HOSTNAME} : \w";
-	pprefix="\[\e[01;37m\][\[\e[01;32m\]\${USER}@\${HOSTNAME}\[\e[01;37m\]]";
+	pprefix="\[\033[01;37m\][\[\033[01;32m\]\${USER}@\${HOSTNAME}\[\033[01;37m\]]";
 else
 	# Don't display username/hostname
 	titlebar="\w";
@@ -28,7 +28,7 @@ fi
 
 if [ -n "$USE_TITLEBAR" ]; then
 	# If titles are allowed, use titlebar and prompt prefix
-	titleb="\[\e]0;${titlebar}\a\]${pprefix}";
+	titleb="\[\033]0;${titlebar}\a\]${pprefix}";
 else
 	# Otherwise just use prompt prefix
 	titleb="${pprefix}";
@@ -36,10 +36,10 @@ fi
 export titleb;
 
 # Update git prompt
-export AINFO_BB_GIT=$(__git_ps1 "\[\e[01;37m\][\[\e[01;35m\]%s $(__git_ps1_show_sha)\[\e[01;37m\]]");
+export AINFO_BB_GIT=$(__git_ps1 "\[\033[01;37m\][\[\033[01;35m\]%s $(__git_ps1_show_sha)\[\033[01;37m\]]");
 # Update stat block
 if ! statcheck; then
-	export AINFO_BB_STAT="\[\e[01;31m\]\$pstattmp\[\e[01;37m\]";
+	export AINFO_BB_STAT="\[\033[01;31m\]\$pstattmp\[\033[01;37m\]";
 else
 	export AINFO_BB_STAT="\$pstattmp";
 fi
@@ -59,6 +59,6 @@ eval "$promptcmd";
 if [ -n "$USE_TITLEBAR" ]; then
 	# Set up the show command in titlebar trap
 	# (After it's done executing, the trap removes itself, until this sets it again)
-	trap 'echo -ne "\e]0;${TBDECAL}${BASH_COMMAND} ...\a"; trap DEBUG;' DEBUG;
+	trap 'echo -ne "\033]0;${TBDECAL}${BASH_COMMAND} ...\a"; trap DEBUG;' DEBUG;
 fi
 
