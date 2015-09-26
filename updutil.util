@@ -13,6 +13,31 @@ CFIL="$1";
 # Files that will be fetched from the remote
 FFIL="";
 
+# Copy the specified objects
+copy_all () {
+	for FNAME in $UTIL_DIR/$CFIL.util;
+	do
+		if [ -x "$FNAME" ];
+		then
+			cp "$FNAME" "$HOME_BIN_DIR/$(basename ${FNAME%\.util})";
+			cpresult="$?";
+			if [ "$cpresult" -ne 0 ];
+			then
+				echo -e "\e[01;31m$UTIL_DIR/$CFIL.util not found, or could not be accessed\e[00m";
+			else
+				echo -e "\e[01;32m$FNAME -> $HOME_BIN_DIR/$(basename ${FNAME%\.util})\e[00m";
+			fi
+		else
+			if [ "$CFIL" == "*" ];
+			then
+				echo -e "\e[01;31m$FNAME not executable\e[00m";
+			else
+				echo -e "\e[01;31m$UTIL_DIR/$CFIL.util not found or not executable\e[00m";
+			fi
+		fi
+	done
+}
+
 # Fetch mode (Fetch from the git repository)
 if [ "$CFIL" == "--fetch" ] || [ "$CFIL" == "--fetch-all" ];
 then
@@ -90,26 +115,4 @@ then
 	CFIL="$FFIL";
 fi
 
-# Copy the specified objects
-for FNAME in $UTIL_DIR/$CFIL.util;
-do
-	if [ -x "$FNAME" ];
-	then
-		cp "$FNAME" "$HOME_BIN_DIR/$(basename ${FNAME%\.util})";
-		cpresult="$?";
-		if [ "$cpresult" -ne 0 ];
-		then
-			echo -e "\e[01;31m$UTIL_DIR/$CFIL.util not found, or could not be accessed\e[00m";
-		else
-			echo -e "\e[01;32m$FNAME -> $HOME_BIN_DIR/$(basename ${FNAME%\.util})\e[00m";
-		fi
-	else
-		if [ "$CFIL" == "*" ];
-		then
-			echo -e "\e[01;31m$FNAME not executable\e[00m";
-		else
-			echo -e "\e[01;31m$UTIL_DIR/$CFIL.util not found or not executable\e[00m";
-		fi
-	fi
-done
 
