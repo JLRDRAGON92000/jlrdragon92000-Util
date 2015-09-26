@@ -95,6 +95,8 @@ then
 	done
 	# Update the head for master
 	cp -f "$UTIL_TMP_DIR/.git/refs/heads/master" "$UTIL_DIR/.git/refs/heads/master";
+	# Return to Util/
+	cd "$UTIL_DIR";
 	# Reset HEAD to remove change notices; the work tree should be the same as the remote now
 	git reset HEAD;
 	# Clean up
