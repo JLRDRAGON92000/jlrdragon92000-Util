@@ -1,5 +1,10 @@
-resstudent.sh
-mkidir.sh
-uidir.sh
-idir.sh
+resstudent.util
+mkidir.util
+uidir.util
+idir.util
+ps1opts/._X_sshuh.lock
+util-logins.log
+.ps1modelast
+ps1opts/._X_NS_*.sh
+.update-exempt
 

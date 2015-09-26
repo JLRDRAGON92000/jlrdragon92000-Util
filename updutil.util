@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Update Util/
+# Update Util ($HOME/bin directories or Util itself from the repository)
 
 # Remote URL of the git repository
 FETCH_REPO_URL="https://github.com/JLRDRAGON92000/jlrdragon92000-Util.git";
@@ -10,6 +10,7 @@ UTIL_TMP_DIR="$HOME/Util.tmp";
 # Get first argument
 # If it is nil, use * (Everything)
 CFIL="$1";
+# Files that will be fetched from the remote
 FFIL="";
 
 # Fetch mode (Fetch from the git repository)
@@ -25,10 +26,10 @@ then
 	pwdbak="$PWD";
 	# Go to Util/
 	cd "$UTIL_DIR";
-	# Update the HEAD of the upstream
+	# Update FETCH_HEAD for upstream
 	git fetch -u "origin" "bashlt4";
 	# Get the list of different files from the upstream
-	UTIL_DIFF_LIST=$(git diff --name-only @{upstream} -- "$FFIL.sh");
+	UTIL_DIFF_LIST=$(git diff --name-only @{upstream} -- "$FFIL");
 	
 	# Set the display for the diff list
 	if [ "$CFIL" == "--fetch-all" ];
@@ -51,22 +52,28 @@ then
 	fi
 	
 	# Download the most current version of Util/ from the repo
-	cd "$HOME";
-	git clone "$FETCH_REPO_URL";
-	mv "jlrdragon92000-Util" "Util.tmp";
+	git clone "$FETCH_REPO_URL" "$UTIL_TMP_DIR";
+	cd "$UTIL_TMP_DIR";
 	
 	# Are we in --fetch-all mode? If so, every file is changed
 	if [ "$CFIL" == "--fetch-all" ];
 	then
-		UTIL_DIFF_LIST="$HOME/Util.tmp/*";
+		UTIL_DIFF_LIST="*";
 	fi
 	# Copy the changed files to Util/ (or all of them if --fetch-all)
 	for CFNAME in $UTIL_DIFF_LIST;
 	do
-		cp -f "$HOME/Util.tmp/$(basename $CFNAME)" "$HOME/Util/$(basename $CFNAME)"; 
+		if grep -q "$CFNAME" "$UTIL_DIR/.update-exempt"; then :;
+		else
+			cp -f "$UTIL_TMP_DIR/$CFNAME" "$UTIL_DIR/$CFNAME"; 
+		fi
 	done
+	# Update the head for master
+	cp -f "$UTIL_TMP_DIR/.git/refs/heads/master" "$UTIL_DIR/.git/refs/heads/master";
+	# Reset HEAD to remove change notices; the work tree should be the same as the remote now
+	git reset HEAD;
 	# Clean up
-	rm -rf "$HOME/Util.tmp";
+	rm -rf "$UTIL_TMP_DIR";
 	cd "$pwdbak";
 	# Did we copy any files? If not, exit now
 	if [ "$CFIL" != "--fetch-all" ] && [ -z "$UTIL_DIFF_LIST" ];
@@ -84,26 +91,25 @@ then
 fi
 
 # Copy the specified objects
-for FNAME in $UTIL_DIR/$CFIL.sh;
+for FNAME in $UTIL_DIR/$CFIL.util;
 do
 	if [ -x "$FNAME" ];
 	then
-		cp "$FNAME" "$HOME/bin/$(basename ${FNAME%\.sh})";
+		cp "$FNAME" "$HOME_BIN_DIR/$(basename ${FNAME%\.util})";
 		cpresult="$?";
 		if [ "$cpresult" -ne 0 ];
 		then
-			echo -e "\033[01;31m$UTIL_DIR/$CFIL.sh not found\033[00m";
+			echo -e "\033[01;31m$UTIL_DIR/$CFIL.util not found, or could not be accessed\033[00m";
 		else
-			echo -e "\033[01;32m$FNAME -> $HOME/bin/$(basename ${FNAME%\.sh})\033[00m";
+			echo -e "\033[01;32m$FNAME -> $HOME_BIN_DIR/$(basename ${FNAME%\.util})\033[00m";
 		fi
 	else
 		if [ "$CFIL" == "*" ];
 		then
 			echo -e "\033[01;31m$FNAME not executable\033[00m";
 		else
-			echo -e "\033[01;31m$UTIL_DIR/$CFIL.sh not found or not executable\033[00m";
+			echo -e "\033[01;31m$UTIL_DIR/$CFIL.util not found or not executable\033[00m";
 		fi
-
 	fi
 done
 

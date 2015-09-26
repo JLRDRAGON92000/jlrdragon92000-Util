@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# jrun: Compile and run a Java program
+# Requires Java
+# Compatible with ainfo PS1 mode (Also in Util/)
+
 LF='\012';
 
 if [ "$(basename $0)" != "jrun" ];
@@ -181,8 +185,8 @@ then
 	echo "jrun successfully installed at $2.";
 elif [ "$param" == "--help" ];
 then
-	echo -e "\033[01;37mjrun\033[00m - Compiles and runs Java classes";
-	echo -e "usage: $(basename $0) <-a|-c|-r|-x|-i|-if> <classname> [args]";
+	echo -e "\033[01;37mjrun\033[00m - Compiles and runs Java classes\033[00m";
+	echo -e "usage: \033[01;37m$(basename $0)\033[00m -a|-c|-r|-x|-i|-if classname [args]";
 	echo -e "options:";
 	echo -e "	\033[01;37m-a\033[00m	Compile and run the given class";
 	echo -e "	\033[01;37m-c\033[00m	Compile the given class";

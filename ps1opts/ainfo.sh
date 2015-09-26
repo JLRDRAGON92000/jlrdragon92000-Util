@@ -1,0 +1,1 @@
+ainfo	automatic selecting info prompt	\[\e[01;33m\][ERROR!]...\[\e[00m\]	\[\e[01;33m\][Continue input] \[\e[00m\e[01;37m\]\$ \[\e[00m\]	[Selection] $ 	\[\e[01;35m\][Verbose entry] \[\e[00m\e[01;37m\]\$ \[\e[00m\]	export pstattmp="${PIPESTATUS[*]}"; source "$PS1M_DIR/._X_ainfo_strap.sh"	source "$PS1M_DIR/._X_showsshuh.sh"; source "$PS1M_DIR/._X_ainfo_init.sh";	1	1	1	verbose name	1
