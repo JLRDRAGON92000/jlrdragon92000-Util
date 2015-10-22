@@ -1,120 +1,31 @@
 #!/bin/bash
 
-# Update Util ($HOME/bin directories or Util itself from the repository)
-
-# Remote URL of the git repository
-FETCH_REPO_URL="https://github.com/JLRDRAGON92000/jlrdragon92000-Util.git";
-# Working directory while new Util/ is merged
-UTIL_TMP_DIR="$HOME/Util.tmp";
+# Update Util programs in the $HOME/bin directories
 
 # Get first argument
 # If it is nil, use * (Everything)
 CFIL="$1";
-# Files that will be fetched from the remote
-FFIL="";
 
 # Copy the specified objects
-copy_all () {
-	for FNAME in $UTIL_DIR/$CFIL.util;
-	do
-		if [ -x "$FNAME" ];
+for FNAME in $UTIL_DIR/$CFIL.util;
+do
+	if [ -x "$FNAME" ];
+	then
+		cp "$FNAME" "$HOME_BIN_DIR/$(basename ${FNAME%\.util})";
+		cpresult="$?";
+		if [ "$cpresult" -ne 0 ];
 		then
-			cp "$FNAME" "$HOME_BIN_DIR/$(basename ${FNAME%\.util})";
-			cpresult="$?";
-			if [ "$cpresult" -ne 0 ];
-			then
-				echo -e "\e[01;31m$UTIL_DIR/$CFIL.util not found, or could not be accessed\e[00m";
-			else
-				echo -e "\e[01;32m$FNAME -> $HOME_BIN_DIR/$(basename ${FNAME%\.util})\e[00m";
-			fi
+			echo -e "\e[01;31m$UTIL_DIR/$CFIL.util not found, or could not be accessed\e[00m";
 		else
-			if [ "$CFIL" == "*" ];
-			then
-				echo -e "\e[01;31m$FNAME not executable\e[00m";
-			else
-				echo -e "\e[01;31m$UTIL_DIR/$CFIL.util not found or not executable\e[00m";
-			fi
+			echo -e "\e[01;32m$FNAME -> $HOME_BIN_DIR/$(basename ${FNAME%\.util})\e[00m";
 		fi
-	done
-}
-
-# Fetch mode (Fetch from the git repository)
-if [ "$CFIL" == "--fetch" ] || [ "$CFIL" == "--fetch-all" ];
-then
-	FFIL="$2";
-	if [ -z "$2" ];
-	then
-		FFIL="*";
-	fi
-	
-	# Save the user's current working directory
-	pwdbak="$PWD";
-	# Go to Util/
-	cd "$UTIL_DIR";
-	# Update FETCH_HEAD for upstream
-	git fetch -u "origin" "master";
-	# Get the list of different files from the upstream
-	UTIL_DIFF_LIST=$(git diff --name-only @{upstream} -- "$FFIL");
-	
-	# Set the display for the diff list
-	if [ "$CFIL" == "--fetch-all" ];
-	then
-		UTIL_DIFF_LISTD="ALL of them";
-	elif [ -z "$UTIL_DIFF_LIST" ];
-	then
-		UTIL_DIFF_LISTD="Nothing, already up to date";
 	else
-		UTIL_DIFF_LISTD="$UTIL_DIFF_LIST";
-	fi
-	# Show the diff list
-	echo -e "\e[01;32mFiles to be changed:
-\e[01;37m$UTIL_DIFF_LISTD\e[00m";
-	
-	# If no files changed, stop now
-	if [ -z "$UTIL_DIFF_LIST" ] && [ "$CFIL" != "--fetch-all" ];
-	then
-		exit 0;
-	fi
-	
-	# Download the most current version of Util/ from the repo
-	git clone "$FETCH_REPO_URL" "$UTIL_TMP_DIR";
-	cd "$UTIL_TMP_DIR";
-	
-	# Are we in --fetch-all mode? If so, every file is changed
-	if [ "$CFIL" == "--fetch-all" ];
-	then
-		UTIL_DIFF_LIST="*";
-	fi
-	# Copy the changed files to Util/ (or all of them if --fetch-all)
-	for CFNAME in $UTIL_DIFF_LIST;
-	do
-		if grep -q "$CFNAME" "$UTIL_DIR/.update-exempt"; then :;
+		if [ "$CFIL" == "*" ];
+		then
+			echo -e "\e[01;33m$FNAME not executable\e[00m";
 		else
-			cp -f "$UTIL_TMP_DIR/$CFNAME" "$UTIL_DIR/$CFNAME"; 
+			echo -e "\e[01;31m$UTIL_DIR/$CFIL.util not found or not executable\e[00m";
 		fi
-	done
-	# Update the head for master
-	cp -f "$UTIL_TMP_DIR/.git/refs/heads/master" "$UTIL_DIR/.git/refs/heads/master";
-	# Return to Util/
-	cd "$UTIL_DIR";
-	# Reset HEAD to remove change notices; the work tree should be the same as the remote now
-	git reset HEAD;
-	# Clean up
-	rm -rf "$UTIL_TMP_DIR";
-	cd "$pwdbak";
-	# Did we copy any files? If not, exit now
-	if [ "$CFIL" != "--fetch-all" ] && [ -z "$UTIL_DIFF_LIST" ];
-	then
-		exit 0;
 	fi
-fi
-
-if [ -z "$1" ];
-then
-	CFIL="*";
-elif [ "$1" == "--fetch" ] || [ "$1" == "--fetch-all" ];
-then
-	CFIL="$FFIL";
-fi
-
+done
 
