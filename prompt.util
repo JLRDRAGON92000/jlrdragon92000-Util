@@ -526,9 +526,6 @@ __git_ps1_show_sha () {
 	echo "$shastr";
 }
 
-# Log this login
-$UTIL_DIR/logentry.util;
-
 # Load the PS1 last mode file
 export PS1MODELAST=$(cat "$PS1L_FIL");
 # Start in whatever PS1 mode I left it in, otherwise start it in full mode
