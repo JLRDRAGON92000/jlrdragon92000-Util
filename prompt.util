@@ -548,4 +548,3 @@ fi
 #    \e[01;33mLogged on to \e[01;31m$HOSTNAME\e[01;33m as \e[01;31m$USER\e[01;33m from \e[01;31m$(if [ -z $SSH_IP ]; then echo 'console'; else echo $SSH_IP; fi;) (${TTY:5})\n\
 #    \e[01;33mType \"\e[01;31mps1_help\e[01;33m\" for help with the PS1 mode system\n\
 #    \e[01;33mYou are using the \e[01;31m$(ps1_longname $PS1MODELAST)\e[01;33m PS1 mode\n\e[00m";
-

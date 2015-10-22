@@ -1,3 +1,4 @@
+.ps1modelast
 resstudent.util
 mkidir.util
 uidir.util
@@ -5,6 +6,5 @@ idir.util
 ps1opts/._X_sshuh.lock
 util-logins.log
 ps1opts/._X_NS_*.sh
-.ps1modelast
 .update-exempt
 
