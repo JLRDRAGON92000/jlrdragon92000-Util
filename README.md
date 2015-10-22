@@ -14,3 +14,6 @@ If a shell script is specific to the particular environment it resides on, I wil
 ### Adding and editing scripts
 For writing new scripts and editing existing ones, I recommend using the `eutil` script included with the download, as it will automatically manage placing the new script into the bin directory.
 `eutil`'s default editor can be set by changing the value of the `EUTIL_EDITOR` variable inside of eutil.util.
+
+If there are changes you want to make to Util on a single machine, I recommend keeping them in another branch, separate from the master.
+
