@@ -4,7 +4,11 @@
 
 # Get first argument
 # If it is nil, use * (Everything)
-CFIL="$1";
+if [ -z "$1" ]; then
+	CFIL="*";
+else
+	CFIL="$1";
+fi
 
 # Copy the specified objects
 for FNAME in $UTIL_DIR/$CFIL.util;
