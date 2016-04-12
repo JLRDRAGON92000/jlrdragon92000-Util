@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# .util-prehook : Load prompt.util, then load all of the files in prehook.d/.
+# Sourced at the end of .bashrc.
+
+# Establish UTIL_DIR, UTIL_INCLUDE_DIR, and anything else that should stick around
+# in case of a failure of prompt.util
+export UTIL_DIR="##UTIL_DIR##";
+export UTIL_INCLUDE_DIR="##UTIL_DIR##/include.d";
+export HOME_BIN_DIR="##HOME_BIN_DIR##";
+
+# Get current PS1/2/3/4 settings, most likely as set by .bashrc/.bash_profile
+export PS1_INIT=$PS1;
+export PS2_INIT=$PS2;
+export PS3_INIT=$PS3;
+export PS4_INIT=$PS4;
+export PCMD_INIT=$PROMPT_COMMAND;
+
+PROMPT_COMMAND='echo -e "\e[01;33mWARNING: PROMPT FAILED TO LOAD!\e[00m"';
+PS1="\[\e]0;[ERROR!]\007\]\[\e[01;33m\][ERROR!] \[\e[00m\]$PS1";
+PS2="\[\e[01;33m\][ERROR!] \[\e[00m\]$PS2";
+PS3="[ERROR!] $PS3";
+PS4="\[\e[01;33m\][ERROR!] \[\e[00m\]$PS4";
+

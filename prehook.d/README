@@ -1,0 +1,5 @@
+Util/prehook.d/
+
+Some Util packages may need to deposit a file here. Each file in this directory will be executed at each logon.
+NOTE: Unlike include.d/, it is highly recommended to keep your additions to prehook.d/ to a single file.
+

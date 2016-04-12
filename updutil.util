@@ -4,32 +4,40 @@
 
 # Get first argument
 # If it is nil, use * (Everything)
-if [ -z "$1" ]; then
-	CFIL="*";
-else
-	CFIL="$1";
-fi
+# if [ -z "$1" ]; then
+#	CFIL="*";
+# else
+#	CFIL="$1";
+# fi
 
-# Copy the specified objects
-for FNAME in $UTIL_DIR/$CFIL.util;
-do
-	if [ -x "$FNAME" ];
-	then
-		cp "$FNAME" "$HOME_BIN_DIR/$(basename ${FNAME%\.util})";
-		cpresult="$?";
-		if [ "$cpresult" -ne 0 ];
-		then
-			echo -e "\e[01;31m$UTIL_DIR/$CFIL.util not found, or could not be accessed\e[00m";
-		else
-			echo -e "\e[01;32m$FNAME -> $HOME_BIN_DIR/$(basename ${FNAME%\.util})\e[00m";
+# Recursively update the Util/ directory
+update_util_onedir () {
+	# Operate in recursive mode?
+	[ "$2" == "-r" ] && recurse=1;
+	# Copy the specified objects
+	for FNAME in "$1"/*; do
+		if [ -x "$FNAME" ] && [ ! -d "$FNAME" ] && (echo "$FNAME" | grep -q '\.util$'); then
+			# Non-directory executable file ending in .util, copy it
+			cp "$FNAME" "$HOME_BIN_DIR/$(basename ${FNAME%\.util})";
+			cpresult="$?";
+			if [ "$cpresult" -ne 0 ]; then
+				echo -e "\e[01;31m$FNAME not found, or could not be accessed\e[00m";
+			else
+				echo -e "\e[01;32m$FNAME -> $HOME_BIN_DIR/$(basename ${FNAME%\.util})\e[00m";
+			fi
+		elif [ -d "$FNAME" ] && [ -n "$recurse" ]; then
+			# Directory, recurse into it
+			update_util_onedir "${FNAME%/}";
+		elif [ ! -x "$FNAME" ]; then
+			# if [ "$CFIL" == "*" ]; then
+				echo -e "\e[01;33m$FNAME not executable\e[00m";
+			# else
+			#	echo -e "\e[01;31m$UTIL_DIR/$CFIL.util not found or not executable\e[00m";
+			# fi
 		fi
-	else
-		if [ "$CFIL" == "*" ];
-		then
-			echo -e "\e[01;33m$FNAME not executable\e[00m";
-		else
-			echo -e "\e[01;31m$UTIL_DIR/$CFIL.util not found or not executable\e[00m";
-		fi
-	fi
-done
+	done
+}
+
+update_util_onedir "${UTIL_DIR%/}";
+update_util_onedir "${UTIL_INCLUDE_DIR%/}" -r;
 

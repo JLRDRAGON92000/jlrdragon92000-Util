@@ -1,0 +1,9 @@
+Util/ps1opts.d/
+
+This directory contains prompt files for use with prompt.util. By default, it contains only
+one: def.sh, which produces a prompt looking something like this:
+
+	user@host:~$
+
+Other prompts are available - see the util-prompts repository for some examples.
+

@@ -1,7 +1,9 @@
 #!/bin/bash
 
-# prompt.util : That part of Util/ that starts everything.
-# Sourced in .bashrc, just after .emerdefaults.util.
+# prompt.util : Provides basic prompt change functionality.
+# Does nothing useful without some prompt files in ps1opts.d/
+# As the rest of Util/ is heavily integrated with it, it is
+# given special treatment and loaded before prehook.d/.
 
 # Determine whether we should allow some features exclusive to terminals in desktop environments.
 case $TERM in
@@ -30,10 +32,8 @@ export SSH_IP="${SSH_CLIENT:+$(echo $SSH_CLIENT | cut -f1 -d' ')}";
 export TTY="$(tty)";
 
 # Constants for the prompt and associated utilities
-export UTIL_DIR="$HOME/Util";
-export HOME_BIN_DIR="$HOME/bin";
 export PS1L_FIL="$UTIL_DIR/.ps1modelast";
-export PS1M_DIR="$UTIL_DIR/ps1opts";
+export PS1M_DIR="$UTIL_DIR/ps1opts.d";
 export UTIL_LOGPATH="$UTIL_DIR/util-logins.log";
 
 # If the user's private bin does not exist, create it

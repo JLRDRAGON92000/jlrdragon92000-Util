@@ -2,7 +2,13 @@
 # Edit a Util shell script by name from anywhere, then copy it to the bin when done
 
 # Change default editor here
-EUTIL_EDITOR="vim";
+EUTIL_EDITOR="$EDITOR";
+# Default to vim or vi (whichever one exists)
+if [ -z "$EUTIL_EDITOR" ] && [ -x /usr/bin/vim ]; then
+	EUTIL_EDITOR="vim";
+elif [ -z "$EUTIL_EDITOR" ]; then
+	EUTIL_EDITOR="vi";
+fi
 
 # Get target script
 target="$1";
@@ -46,13 +52,14 @@ then
 	# Copy it only if it is executable
 	if [ -x "$UTIL_DIR/$target.util" ];
 	then
-		cp "$UTIL_DIR/$target.util" "$HOME_BIN_DIR/$target" 2>/dev/null;
+		fulltarget="$HOME_BIN_DIR"/"$(basename "$target")";
+		cp "$UTIL_DIR/$target.util" "$fulltarget" 2>/dev/null;
 		cpresult="$?";
 		if [ "$cpresult" -ne 0 ];
 		then
-			echo -e "\e[01;31m$UTIL_DIR/$target.util not found, or $HOME_BIN_DIR/$target could not be created\e[00m";
+			echo -e "\e[01;31m$UTIL_DIR/$target.util not found, or $fulltarget could not be created\e[00m";
 		else
-			echo -e "\e[01;32m$UTIL_DIR/$target.util -> $HOME_BIN_DIR/$target\e[00m";
+			echo -e "\e[01;32m$UTIL_DIR/$target.util -> $fulltarget\e[00m";
 		fi
 	fi
 fi

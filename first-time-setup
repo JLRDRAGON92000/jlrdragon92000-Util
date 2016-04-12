@@ -1,0 +1,47 @@
+#!/bin/bash
+
+# Util first time setup
+# This will configure the new Util installation for first use
+
+# Detect if bash is available
+if [ ! -x $(which bash) ]; then
+	echo -e "bash does not appear to be availabe on this system. Util and its compnents\nrequire some of the more advanced features of bash to work properly.";
+fi
+
+# Util directory (configurable)
+read -p "Util directory (empty for ~/Util): " UTIL_SETUP_DIR;
+if [ -z "$UTIL_SETUP_DIR" ]; then
+	UTIL_SETUP_DIR="$HOME/Util";
+elif [ ! -d "$UTIL_SETUP_DIR" ]; then
+	echo "That doesn't appear to be a directory.";
+fi
+
+# Private bin directory (configurable)
+read -p "Private bin directory (empty for ~/bin): " BIN_SETUP_DIR;
+if [ -z "$BIN_SETUP_DIR" ]; then
+	BIN_SETUP_DIR="$HOME/bin";
+elif [ ! -e "$BIN_SETUP_DIR" ]; then
+	echo "That path doesn't exist; creating it now.";
+	mkdir -p "$HOME/bin";
+elif [ ! -d "$BIN_SETUP_DIR" ]; then
+	echo "That doesn't appear to be a directory.";
+fi
+
+# Write to Util prehook file
+UTIL_SETUP_DIR_ESC="${UTIL_SETUP_DIR//\//\\/}";
+BIN_SETUP_DIR_ESC="${BIN_SETUP_DIR//\//\\/}";
+sed -i -e "s/##UTIL_DIR##/$UTIL_SETUP_DIR_ESC/g" "$UTIL_SETUP_DIR/.util-prehook";
+sed -i -e "s/##HOME_BIN_DIR##/$BIN_SETUP_DIR_ESC/g" "$UTIL_SETUP_DIR/.util-prehook";
+
+# Write to .bashrc/.[bash_]profile
+# First, ask which one to use
+echo "We will now write the Util prehooks into a profile script in your home directory.";
+echo "Which one would you prefer to use?";
+select UTIL_SETUP_HOOK_DEST in .bashrc .bash_profile .profile; do
+	echo -e "\n# Load Util/\nsource \"$UTIL_DIR/.util-prehook\";" >>"$HOME/$UTIL_SETUP_HOOK_DEST";
+done
+
+# Done
+echo "Setup completed."
+echo -e "Please log off and back on again (or open a new PTY) for the\nchanges to take effect."
+
