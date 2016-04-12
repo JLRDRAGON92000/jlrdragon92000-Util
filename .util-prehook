@@ -17,6 +17,13 @@ export PS3_INIT=$PS3;
 export PS4_INIT=$PS4;
 export PCMD_INIT=$PROMPT_COMMAND;
 
+# Error prompt
+PROMPT_COMMAND='echo -e "\e[01;33mWARNING: PROMPT FAILED TO LOAD!\e[00m"';
+PS1="\[\e]0;[ERROR!]\007\]\[\e[01;33m\][ERROR!] \[\e[00m\]$PS1";
+PS2="\[\e[01;33m\][ERROR!] \[\e[00m\]$PS2";
+PS3="[ERROR!] $PS3";
+PS4="\[\e[01;33m\][ERROR!] \[\e[00m\]$PS4";
+
 # Load prompt.util
 source "$UTIL_DIR/prompt.util";
 
@@ -24,10 +31,4 @@ source "$UTIL_DIR/prompt.util";
 for PH in "$UTIL_PREHOOK_DIR"/*.util-prehook; do
 	source "$PH";
 done
-
-PROMPT_COMMAND='echo -e "\e[01;33mWARNING: PROMPT FAILED TO LOAD!\e[00m"';
-PS1="\[\e]0;[ERROR!]\007\]\[\e[01;33m\][ERROR!] \[\e[00m\]$PS1";
-PS2="\[\e[01;33m\][ERROR!] \[\e[00m\]$PS2";
-PS3="[ERROR!] $PS3";
-PS4="\[\e[01;33m\][ERROR!] \[\e[00m\]$PS4";
 

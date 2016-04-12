@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# This is the default prehook. It doesn't do anything right now.
+
