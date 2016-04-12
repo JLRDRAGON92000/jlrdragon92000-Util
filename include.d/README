@@ -1,0 +1,5 @@
+Util/include.d/
+
+If downloading a Util package, place a directory containing its files here.
+The system, when traversing this directory, will ignore hidden directories (starting with ".").
+
