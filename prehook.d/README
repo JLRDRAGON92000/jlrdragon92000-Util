@@ -2,4 +2,6 @@ Util/prehook.d/
 
 Some Util packages may need to deposit a file here. Each file in this directory will be executed at each logon.
 NOTE: Unlike include.d/, it is highly recommended to keep your additions to prehook.d/ to a single file.
+All Util prehook files are bash scripts with the file extension .util-prehook. The system will ignore
+any other files or directories placed here.
 

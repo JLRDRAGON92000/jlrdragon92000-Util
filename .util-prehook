@@ -7,7 +7,16 @@
 # in case of a failure of prompt.util
 export UTIL_DIR="##UTIL_DIR##";
 export UTIL_INCLUDE_DIR="##UTIL_DIR##/include.d";
+export UTIL_INCLUDE_DIR="##UTIL_DIR##/prehook.d";
 export HOME_BIN_DIR="##HOME_BIN_DIR##";
+
+# Load prompt.util
+source "$UTIL_DIR/prompt.util";
+
+# Load the rest of the prehooks
+for PH in "$UTIL_PREHOOK_DIR"/*.util-prehook; do
+	source "$PH";
+done
 
 # Get current PS1/2/3/4 settings, most likely as set by .bashrc/.bash_profile
 export PS1_INIT=$PS1;
