@@ -38,7 +38,8 @@ sed -i -e "s/##HOME_BIN_DIR##/$BIN_SETUP_DIR_ESC/g" "$UTIL_SETUP_DIR/.util-preho
 echo "We will now write the Util prehooks into a profile script in your home directory.";
 echo "Which one would you prefer to use?";
 select UTIL_SETUP_HOOK_DEST in .bashrc .bash_profile .profile; do
-	echo -e "\n# Load Util/\nsource \"$UTIL_DIR/.util-prehook\";" >>"$HOME/$UTIL_SETUP_HOOK_DEST";
+	echo -e "\n# Load Util/\nexport PATH=\"\$HOME/bin:\$PATH\";\nsource \"$UTIL_DIR/.util-prehook\";" >>"$HOME/$UTIL_SETUP_HOOK_DEST";
+	echo "Any others? (Press CTRL+D to stop)";
 done
 
 # Done
