@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # List all scripts in Util/, using similar format to ps1_list
-# (In fact, this is taken directly from ps1_list, right down to the variable names, which I did not feel like changing.)
+# (In fact, this is taken directly from ps1_list, right down to the variable names)
 
 echo -e "\e[01;33m[Loading]\e[00m";
 let lngst=0;
@@ -27,7 +27,7 @@ ps1lnx="Name";
 let flngx=$llng-${#ps1lnx};
 let flng=$flngx-2;
 finout=$finout$(echo "\e[A\e[01;33m$ps1lnx" "\e(0${fil:0:flng}\e(B" "\e[01;33mExec?\n");
-for FN in $SEARCH_DIR/*.sh;
+for FN in $SEARCH_DIR/*.util;
 do
 	ps1lnx="$(basename $FN)";
 	let flngx=$llng-${#ps1lnx};
