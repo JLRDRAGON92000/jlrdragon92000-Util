@@ -54,4 +54,5 @@ UTIL_DIR="$UTIL_SETUP_DIR" UTIL_INCLUDE_DIR="$UTIL_SETUP_DIR/include.d" HOME_BIN
 # Done
 echo "Setup completed."
 echo -e "Please log off and back on again (or open a new PTY) for the\nchanges to take effect."
+echo "Feel free to delete this script.";
 
