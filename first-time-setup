@@ -8,13 +8,19 @@ if [ ! -x $(which bash) ]; then
 	echo -e "bash does not appear to be availabe on this system. Util and its compnents\nrequire some of the more advanced features of bash to work properly.";
 fi
 
-# Util directory (configurable)
-read -p "Util directory (empty for ~/Util): " UTIL_SETUP_DIR;
-if [ -z "$UTIL_SETUP_DIR" ]; then
-	UTIL_SETUP_DIR="$HOME/Util";
-elif [ ! -d "$UTIL_SETUP_DIR" ]; then
-	echo "That doesn't appear to be a directory.";
+# Is PWD in the same directory as this script?
+# I. Is this script being accessed through a relative pathname?
+if echo "$0" | grep -q "/"; then
+	# Contains /, is it not ./?
+	if echo "$0" | grep -qv '^\./'; then
+		# Error
+		echo -e "It appears you aren't in the same directory as this script. Please move into\n the directory in which this script resides, and then execute it again.";
+		exit 1;
+	fi
 fi
+
+# Assume Util directory is the same as our working directory
+UTIL_SETUP_DIR="$PWD";
 
 # Private bin directory (configurable)
 read -p "Private bin directory (empty for ~/bin): " BIN_SETUP_DIR;
@@ -38,9 +44,12 @@ sed -i -e "s/##HOME_BIN_DIR##/$BIN_SETUP_DIR_ESC/g" "$UTIL_SETUP_DIR/.util-preho
 echo "We will now write the Util prehooks into a profile script in your home directory.";
 echo "Which one would you prefer to use?";
 select UTIL_SETUP_HOOK_DEST in .bashrc .bash_profile .profile; do
-	echo -e "\n# Load Util/\nexport PATH=\"\$HOME/bin:\$PATH\";\nsource \"$UTIL_DIR/.util-prehook\";" >>"$HOME/$UTIL_SETUP_HOOK_DEST";
+	echo -e "\n# Load Util/\nexport PATH=\"\$HOME/bin:\$PATH\";\nsource \"$UTIL_SETUP_DIR/.util-prehook\";" >>"$HOME/$UTIL_SETUP_HOOK_DEST";
 	echo "Any others? (Press CTRL+D to stop)";
 done
+
+# First time update to populate bin directory
+"$UTIL_SETUP_DIR/updutil.util";
 
 # Done
 echo "Setup completed."
