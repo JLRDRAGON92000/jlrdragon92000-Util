@@ -49,7 +49,7 @@ select UTIL_SETUP_HOOK_DEST in .bashrc .bash_profile .profile; do
 done
 
 # First time update to populate bin directory
-"$UTIL_SETUP_DIR/updutil.util";
+UTIL_DIR="$UTIL_SETUP_DIR" UTIL_INCLUDE_DIR="$UTIL_SETUP_DIR/include.d" HOME_BIN_DIR="$BIN_SETUP_DIR" "$UTIL_SETUP_DIR/updutil.util";
 
 # Done
 echo "Setup completed."
