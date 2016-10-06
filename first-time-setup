@@ -33,6 +33,9 @@ elif [ ! -d "$BIN_SETUP_DIR" ]; then
 	echo "That doesn't appear to be a directory.";
 fi
 
+# create the private bin directory if it doesn't exist
+[ ! -d "$BIN_SETUP_DIR" ] && mkdir -p "$BIN_SETUP_DIR";
+
 # Write to Util prehook file
 UTIL_SETUP_DIR_ESC="${UTIL_SETUP_DIR//\//\\/}";
 BIN_SETUP_DIR_ESC="${BIN_SETUP_DIR//\//\\/}";

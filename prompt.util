@@ -79,13 +79,6 @@ mdcd () {
 	cd "$1";
 }
 
-# Download something from the C9 workspace
-# C9's new backend changed things a lot, so I have to change this to make up for that
-C9DL_DAV_URLBASE="https://vfs-gce-usw-%02d.c9.io/vfs/634996/%s/workspace";
-c9dl () {
-	curl "$(printf $C9DL_DAV_URLBASE $2 $3)/$1" -o "$(basename $1)";
-}
-
 # It turns out cd can already cd into the last used directory
 # So implemented here is a method that will not echo $OLDPWD to stdout when this happens
 cdlast () {
